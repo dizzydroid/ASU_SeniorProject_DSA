@@ -1,12 +1,9 @@
-import sys
-from src.cli.cli_handler import CLIHandler
-from src.gui.gui_handler import GUIHandler
+from src.processors.xml_processor import XMLProcessor
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == "--cli":
-        CLIHandler().run()
-    else:
-        GUIHandler().run()
+    processor = XMLProcessor("sample_files/sample.xml")
+    processor.prettify().minify().compress().save("sample_files/output.xml")
+    print("Operations completed successfully!")
 
 if __name__ == "__main__":
     main()
