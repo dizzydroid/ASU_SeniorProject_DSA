@@ -1,5 +1,5 @@
-<cs>
-    <c id="1">
+<users>
+    <user id="1">
         <name>John Doe</name>
         <posts>
             <post>First post</post>
@@ -8,8 +8,5 @@
         <followers>
             <follower id="2" />
         </followers>
-    </c>
-</cs>
-a:us
-b:ae
-c:br
+    </user>
+</users>
