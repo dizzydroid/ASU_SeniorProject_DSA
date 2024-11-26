@@ -1,0 +1,87 @@
+import customtkinter as ctk
+from PIL import Image
+
+from modules.WelcomeFrame import WelcomeFrame
+from modules.FileInputFrame import FileInputFrame
+from modules.OperationsFrame import OperationsFrame
+from modules.OutputFrame import OutputFrame
+
+
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+
+        # Configure window
+        self.title("XML Master")
+        self.geometry("1000x700")
+
+        # Set theme
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
+
+        # Configure grid layout for resizing
+        self.grid_columnconfigure(0,
+                                  weight=1)  # higer weight means the column will expand more when the window is resized
+        self.grid_rowconfigure(0, weight=1)
+
+        # Initialize variables
+        self.file_path = None
+        self.xml_content = None
+
+        # Load images (placeholders - replace paths with actual images)
+        self.load_images()
+
+        # Create frames
+        self.frames = {}
+        self.current_frame = None
+        self.create_frames()
+        self.show_frame("WelcomeFrame")
+
+    def load_images(self):
+        # Placeholder for image loading - replace with actual paths
+        self.logo_path = "/static/logo.ico"  # Replace with actual logo path
+        self.bg_path = "/path/to/background.png"  # Replace with actual background path
+
+        # Load placeholder images (replace with actual images)
+        try:
+            self.logo_image = ctk.CTkImage(
+                light_image=Image.open(self.logo_path),
+                dark_image=Image.open(self.logo_path),
+                size=(150, 150)
+            )
+        except:
+            # Create a placeholder if image loading fails
+            self.logo_image = None
+
+    def create_frames(self):
+        """Create and initialize all application frames"""
+        # Dictionary to store frame classes
+        frame_classes = {
+            "WelcomeFrame": WelcomeFrame,
+            "FileInputFrame": FileInputFrame,
+            "OperationsFrame": OperationsFrame,
+            "OutputFrame": OutputFrame
+        }
+
+        # Create an instance of each frame
+        for frame_name, frame_class in frame_classes.items():
+            frame = frame_class(self)
+            frame.grid(row=0, column=0,
+                       sticky="nsew")  # makes the frame expand to fill the entire cell in the grid, stretching in all directions (north, south, east, and west).
+            self.frames[frame_name] = frame
+            frame.grid_remove()  # Hide all frames initially
+
+    def show_frame(self, frame_name):
+        """Switch to the specified frame"""
+        # Hide current frame if it exists
+        if self.current_frame:
+            self.frames[self.current_frame].grid_remove()
+
+        # Show the requested frame
+        self.frames[frame_name].grid()
+        self.current_frame = frame_name
+
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
