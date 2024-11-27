@@ -1,10 +1,10 @@
 import customtkinter as ctk
 from PIL import Image
 
-from modules.WelcomeFrame import WelcomeFrame
-from modules.FileInputFrame import FileInputFrame
-from modules.OperationsFrame import OperationsFrame
-from modules.OutputFrame import OutputFrame
+from guimodules.WelcomeFrame import WelcomeFrame
+from guimodules.FileInputFrame import FileInputFrame
+from guimodules.OperationsFrame import OperationsFrame
+from guimodules.OutputFrame import OutputFrame
 
 
 class App(ctk.CTk):
@@ -14,6 +14,9 @@ class App(ctk.CTk):
         # Configure window
         self.title("XML Master")
         self.geometry("1000x700")
+
+        # Center the window
+        self.center_window()
 
         # Set theme
         ctk.set_appearance_mode("dark")
@@ -36,6 +39,22 @@ class App(ctk.CTk):
         self.current_frame = None
         self.create_frames()
         self.show_frame("WelcomeFrame")
+
+    def center_window(self):
+        # Get screen width and height
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+
+        # Calculate window width and height
+        window_width = 1000
+        window_height = 700
+
+        # Calculate position x and y coordinates
+        x = (screen_width // 2) - (window_width // 2)
+        y = (screen_height // 2) - (window_height // 2)
+
+        # Set the window position
+        self.geometry(f'{window_width}x{window_height}+{x}+{y}')
 
     def load_images(self):
         # Placeholder for image loading - replace with actual paths

@@ -1,6 +1,8 @@
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import filedialog
+import os
+
 
 class OutputFrame(ctk.CTkFrame):
     def __init__(self, parent):
@@ -23,6 +25,7 @@ class OutputFrame(ctk.CTkFrame):
         content_frame = ctk.CTkFrame(self, fg_color=("white", "#1a1a1a"))
         content_frame.grid(row=1, column=0, sticky="nsew", padx=20, pady=20)
         content_frame.grid_columnconfigure(0, weight=1)
+        content_frame.grid_rowconfigure(1, weight=1)  # Allow text area to expand
 
         # Status indicator
         self.status_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
@@ -45,58 +48,9 @@ class OutputFrame(ctk.CTkFrame):
         )
         self.output_text.grid(row=1, column=0, pady=(20, 20), padx=20, sticky="nsew")
 
-        # Format selection
-        format_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
-        format_frame.grid(row=2, column=0, sticky="ew", padx=20, pady=(0, 20))
-
-        format_label = ctk.CTkLabel(
-            format_frame,
-            text="Save as:",
-            font=ctk.CTkFont(size=13)
-        )
-        format_label.pack(side="left", padx=(0, 10))
-
-        self.format_var = tk.StringVar(value="xml")
-
-        xml_radio = ctk.CTkRadioButton(
-            format_frame,
-            text="XML",
-            variable=self.format_var,
-            value="xml"
-        )
-        xml_radio.pack(side="left", padx=10)
-
-        json_radio = ctk.CTkRadioButton(
-            format_frame,
-            text="JSON",
-            variable=self.format_var,
-            value="json"
-        )
-        json_radio.pack(side="left", padx=10)
-
-        compressed_radio = ctk.CTkRadioButton(
-            format_frame,
-            text="Compressed",
-            variable=self.format_var,
-            value="compressed"
-        )
-        compressed_radio.pack(side="left", padx=10)
-
         # Button frame
         button_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
         button_frame.grid(row=3, column=0, pady=20)
-
-        # Copy button
-        copy_button = ctk.CTkButton(
-            button_frame,
-            text="Copy to Clipboard",
-            width=140,
-            height=40,
-            command=self.copy_to_clipboard,
-            fg_color="#6366f1",  # Indigo color
-            hover_color="#4f46e5"
-        )
-        copy_button.pack(side="left", padx=10)
 
         # Save button
         save_button = ctk.CTkButton(
@@ -122,55 +76,64 @@ class OutputFrame(ctk.CTkFrame):
         )
         back_button.pack(side="left", padx=10)
 
-    def copy_to_clipboard(self):
-        content = self.output_text.get("1.0", tk.END)
-        self.clipboard_clear()
-        self.clipboard_append(content)
-
-        # Show temporary success message
-        original_text = self.status_label.cget("text")
-        original_color = self.status_label.cget("text_color")
-
-        self.status_label.configure(text="Copied to clipboard!", text_color="#10b981")
-        self.after(2000, lambda: self.status_label.configure(
-            text=original_text,
-            text_color=original_color
-        ))
+        # Track the current file extension
+        self.current_file_extension = ".xml"
 
     def save_output(self):
-        file_format = self.format_var.get()
-        extensions = {
-            "xml": ".xml",
-            "json": ".json",
-            "compressed": ".gz"
-        }
-
-        filename = filedialog.asksaveasfilename(
-            defaultextension=extensions[file_format],
-            filetypes=[
+        try:
+            # Determine file types and default extension
+            file_types = [
                 ("XML files", "*.xml"),
                 ("JSON files", "*.json"),
-                ("Compressed files", "*.gz"),
+                ("Compressed files", "*.zip"),
+                ("Text files", "*.txt"),
                 ("All files", "*.*")
             ]
-        )
 
-        if filename:
-            try:
+            # Suggest filename based on current extension
+            default_filename = f"output{self.current_file_extension}"
+
+            # Open file dialog to choose save location
+            filename = filedialog.asksaveasfilename(
+                defaultextension=self.current_file_extension,
+                filetypes=file_types,
+                initialfile=default_filename
+            )
+
+            # If a filename is selected
+            if filename:
+                # Get content from text box
+                content = self.output_text.get("1.0", tk.END).strip()
+
+                # Write to file
                 with open(filename, 'w', encoding='utf-8') as f:
-                    content = self.output_text.get("1.0", tk.END)
                     f.write(content)
 
+                # Update current file extension for next save
+                self.current_file_extension = os.path.splitext(filename)[1]
+
+                # Show success message
                 self.status_label.configure(
-                    text="File saved successfully!",
+                    text=f"File saved successfully as {os.path.basename(filename)}!",
                     text_color="#10b981"
                 )
+                # Revert status after 2 seconds
                 self.after(2000, lambda: self.status_label.configure(
                     text="Operation Complete",
                     text_color="#10b981"
                 ))
-            except Exception as e:
-                self.status_label.configure(
-                    text="Error saving file!",
-                    text_color="#ef4444"
-                )
+
+        except Exception as e:
+            # Handle any errors during file saving
+            self.status_label.configure(
+                text=f"Error saving file: {str(e)}",
+                text_color="#ef4444"
+            )
+
+    def set_current_extension(self, extension):
+        """
+        Method to set the current file extension from outside the class.
+        Useful for tracking the type of last operation.
+        """
+        # Ensure extension starts with a dot
+        self.current_file_extension = extension if extension.startswith('.') else f'.{extension}'

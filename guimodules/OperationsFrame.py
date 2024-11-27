@@ -69,30 +69,28 @@ class OperationsFrame(ctk.CTkFrame):
             )
 
         # Navigation buttons
-        button_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
-        button_frame.grid(row=3, column=0, columnspan=2, pady=20)
+        content_frame.grid_rowconfigure(3, weight=0)  # Ensure space for buttons
 
-        ctk.CTkButton(
-            button_frame,
+        button_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
+        button_frame.grid(row=3, column=0, columnspan=2, pady=20, sticky="ew")
+
+        # Create a container to center the buttons
+        center_container = ctk.CTkFrame(button_frame, fg_color="transparent")
+        center_container.pack(expand=True, anchor="center")
+
+        back_button = ctk.CTkButton(
+            center_container,
             text="Back",
-            width=100,
-            command=lambda: parent.show_frame("FileInputFrame"),
+            width=140,
+            command=lambda: parent.show_frame("FileInputFrame"),  # Go back to FileInputFrame
             fg_color="#6b7280",
             hover_color="#4b5563"
-        ).pack(side="left", padx=10)
-
-        ctk.CTkButton(
-            button_frame,
-            text="View Output",
-            width=100,
-            command=lambda: parent.show_frame("OutputFrame"),
-            fg_color="#1f538d",
-            hover_color="#14b8a6"
-        ).pack(side="left", padx=10)
+        )
+        back_button.pack(side="left", padx=10)
 
     def create_operation_card(self, parent, title, description, icon, row, col):
         card = ctk.CTkFrame(parent, fg_color=("#f8fafc", "#2d3748"))
-        card.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
+        card.grid(row=row, column=col, padx=10, pady=4, sticky="nsew")
 
         # Icon and title
         header_frame = ctk.CTkFrame(card, fg_color="transparent")
