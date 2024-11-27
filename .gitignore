@@ -8,3 +8,7 @@ venv/
 *.egg-info/
 dist/
 build/
+
+# IDE and editor-specific files
+.vs/
+.idea/
