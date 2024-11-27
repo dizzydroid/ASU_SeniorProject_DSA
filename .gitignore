@@ -1,0 +1,10 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Environment and build artifacts
+env/
+venv/
+*.egg-info/
+dist/
+build/
