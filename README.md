@@ -43,7 +43,7 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
 ### **Installation**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo-name.git
+   git clone https://github.com/dizzydroid/ASU_SeniorProject_DSA/
    ```
 2. Navigate to the project folder:
    ```bash
@@ -63,6 +63,8 @@ Perform quick and efficient operations on XML files via the CLI:
 ```bash
 xml_editor [command] -i input_file [-o output_file]
 ```
+> [!TIP]
+> Replace `[command]` with one of the available commands listed [below](#commands-overview).
 
 ### **Graphical User Interface (GUI)**
 Interact with XML files visually:
