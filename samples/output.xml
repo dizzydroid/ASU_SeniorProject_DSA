@@ -1,1 +1,1 @@
-<root><child><subchild>Some data</subchild></child><child><subchild>More data</subchild></child></root>
+<users><user id="1"><name>John Doe</name><posts><post>First post</post><post>Second post</post></posts><followers><follower id="2" /></followers></user></users>

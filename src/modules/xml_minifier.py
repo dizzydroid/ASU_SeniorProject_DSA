@@ -6,12 +6,10 @@ class XMLMinifier:
 
     def remove_comments(self, root):
         """Remove comments from the XML root."""
-        # Iterate over each element in the XML tree
         for elem in root.findall('.//*'):
             comments_to_remove = [
                 c for c in list(elem) if isinstance(c, ET.Element) and c.tag == ET.Comment
             ]
-            # Remove collected comments
             for comment in comments_to_remove:
                 elem.remove(comment)
 

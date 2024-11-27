@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\really git\\ASU_SeniorProject_DSA\\",
+  "WorkspaceRootPath": "C:\\git clone\\ASU_SeniorProject_DSA\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\really git\\ASU_SeniorProject_DSA\\src\\modules\\xml_minifier.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\git clone\\ASU_SeniorProject_DSA\\src\\modules\\xml_minifier.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\modules\\xml_minifier.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\really git\\ASU_SeniorProject_DSA\\main.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\git clone\\ASU_SeniorProject_DSA\\main.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:main.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\really git\\ASU_SeniorProject_DSA\\samples\\output.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\git clone\\ASU_SeniorProject_DSA\\samples\\output.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:samples\\output.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\really git\\ASU_SeniorProject_DSA\\samples\\sample.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\git clone\\ASU_SeniorProject_DSA\\samples\\sample.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:samples\\sample.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\really git\\ASU_SeniorProject_DSA\\samples\\test.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\git clone\\ASU_SeniorProject_DSA\\samples\\test.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:samples\\test.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
@@ -44,9 +44,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "test.xml",
-              "DocumentMoniker": "C:\\really git\\ASU_SeniorProject_DSA\\samples\\test.xml",
+              "DocumentMoniker": "C:\\git clone\\ASU_SeniorProject_DSA\\samples\\test.xml",
               "RelativeDocumentMoniker": "samples\\test.xml",
-              "ToolTip": "C:\\really git\\ASU_SeniorProject_DSA\\samples\\test.xml",
+              "ToolTip": "C:\\git clone\\ASU_SeniorProject_DSA\\samples\\test.xml",
               "RelativeToolTip": "samples\\test.xml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
@@ -57,9 +57,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "sample.xml",
-              "DocumentMoniker": "C:\\really git\\ASU_SeniorProject_DSA\\samples\\sample.xml",
+              "DocumentMoniker": "C:\\git clone\\ASU_SeniorProject_DSA\\samples\\sample.xml",
               "RelativeDocumentMoniker": "samples\\sample.xml",
-              "ToolTip": "C:\\really git\\ASU_SeniorProject_DSA\\samples\\sample.xml",
+              "ToolTip": "C:\\git clone\\ASU_SeniorProject_DSA\\samples\\sample.xml",
               "RelativeToolTip": "samples\\sample.xml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
@@ -70,11 +70,11 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "output.xml",
-              "DocumentMoniker": "C:\\really git\\ASU_SeniorProject_DSA\\samples\\output.xml",
+              "DocumentMoniker": "C:\\git clone\\ASU_SeniorProject_DSA\\samples\\output.xml",
               "RelativeDocumentMoniker": "samples\\output.xml",
-              "ToolTip": "C:\\really git\\ASU_SeniorProject_DSA\\samples\\output.xml",
+              "ToolTip": "C:\\git clone\\ASU_SeniorProject_DSA\\samples\\output.xml",
               "RelativeToolTip": "samples\\output.xml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAACCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
               "WhenOpened": "2024-11-27T10:49:28.735Z",
               "EditorCaption": ""
@@ -83,9 +83,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "xml_minifier.py",
-              "DocumentMoniker": "C:\\really git\\ASU_SeniorProject_DSA\\src\\modules\\xml_minifier.py",
+              "DocumentMoniker": "C:\\git clone\\ASU_SeniorProject_DSA\\src\\modules\\xml_minifier.py",
               "RelativeDocumentMoniker": "src\\modules\\xml_minifier.py",
-              "ToolTip": "C:\\really git\\ASU_SeniorProject_DSA\\src\\modules\\xml_minifier.py",
+              "ToolTip": "C:\\git clone\\ASU_SeniorProject_DSA\\src\\modules\\xml_minifier.py",
               "RelativeToolTip": "src\\modules\\xml_minifier.py",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
@@ -96,11 +96,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "main.py",
-              "DocumentMoniker": "C:\\really git\\ASU_SeniorProject_DSA\\main.py",
+              "DocumentMoniker": "C:\\git clone\\ASU_SeniorProject_DSA\\main.py",
               "RelativeDocumentMoniker": "main.py",
-              "ToolTip": "C:\\really git\\ASU_SeniorProject_DSA\\main.py",
+              "ToolTip": "C:\\git clone\\ASU_SeniorProject_DSA\\main.py",
               "RelativeToolTip": "main.py",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAD0MTMzMzMrwAwAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-11-27T10:19:32.787Z",
               "EditorCaption": ""
