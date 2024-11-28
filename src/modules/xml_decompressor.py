@@ -29,5 +29,5 @@ class XMLDecompressor:
             file.write(decompressed_data)
 
 # Usage
-decompressor = XMLDecompressor('../../samples/output.compressed')
-decompressor.decompress('../../samples/decompressed_output.xml')
+#decompressor = XMLDecompressor('../../samples/output.compressed')
+#decompressor.decompress('../../samples/decompressed_output.xml')
