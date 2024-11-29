@@ -1,5 +1,6 @@
 import customtkinter as ctk
 
+
 class OperationsFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent, fg_color="transparent")
@@ -11,7 +12,7 @@ class OperationsFrame(ctk.CTkFrame):
 
         # Create header
         header_frame = ctk.CTkFrame(self, fg_color=("white", "#1a1a1a"))
-        header_frame.grid(row=0, column=0, sticky="ew", padx=20, pady=(20, 0))
+        header_frame.grid(row=0, column=0, sticky="ew", padx=20, pady=(12, 0))
 
         if parent.logo_image:
             small_logo = ctk.CTkLabel(header_frame, image=parent.logo_image, text="")
@@ -19,7 +20,7 @@ class OperationsFrame(ctk.CTkFrame):
 
         # Main content
         content_frame = ctk.CTkFrame(self, fg_color=("white", "#1a1a1a"))
-        content_frame.grid(row=1, column=0, sticky="nsew", padx=20, pady=20)
+        content_frame.grid(row=1, column=0, sticky="nsew", padx=15, pady=15)
         content_frame.grid_columnconfigure(0, weight=1)
         content_frame.grid_columnconfigure(1, weight=1)
 
@@ -68,11 +69,10 @@ class OperationsFrame(ctk.CTkFrame):
                 i % 2
             )
 
-        # Navigation buttons
-        content_frame.grid_rowconfigure(3, weight=0)  # Ensure space for buttons
+        # Navigation button
 
         button_frame = ctk.CTkFrame(content_frame, fg_color="transparent")
-        button_frame.grid(row=3, column=0, columnspan=2, pady=20, sticky="ew")
+        button_frame.grid(row=3, column=0, columnspan=2, pady=10, padx=20, sticky="ew")
 
         # Create a container to center the buttons
         center_container = ctk.CTkFrame(button_frame, fg_color="transparent")
@@ -88,13 +88,26 @@ class OperationsFrame(ctk.CTkFrame):
         )
         back_button.pack(side="left", padx=10)
 
+        # View Output button
+        """
+        view_output_button = ctk.CTkButton(
+            center_container,
+            text="View Output",
+            width=140,
+            command=lambda: parent.show_frame("OutputFrame"),  # Switch to OutputFrame
+            fg_color="#1f538d",
+            hover_color="#14b8a6"
+        )
+        view_output_button.pack(side="left", padx=10)"""
+
     def create_operation_card(self, parent, title, description, icon, row, col):
+        """Creates a card for each operation"""
         card = ctk.CTkFrame(parent, fg_color=("#f8fafc", "#2d3748"))
         card.grid(row=row, column=col, padx=10, pady=4, sticky="nsew")
 
         # Icon and title
         header_frame = ctk.CTkFrame(card, fg_color="transparent")
-        header_frame.pack(fill="x", padx=15, pady=(15, 5))
+        header_frame.pack(fill="x", padx=10, pady=(10, 5))
 
         icon_label = ctk.CTkLabel(
             header_frame,
@@ -119,8 +132,8 @@ class OperationsFrame(ctk.CTkFrame):
         )
         desc_label.pack(padx=15, pady=(0, 10))
 
-        # Button
-        ctk.CTkButton(
+        # Execute button
+        execute_button = ctk.CTkButton(
             card,
             text="Execute",
             width=120,
@@ -128,8 +141,9 @@ class OperationsFrame(ctk.CTkFrame):
             command=lambda t=title: self.execute_operation(t),
             fg_color="#1f538d",
             hover_color="#14b8a6"
-        ).pack(pady=(0, 15))
+        )
+        execute_button.pack(pady=(0, 15))
 
     def execute_operation(self, operation):
-        # Placeholder for operation execution
-        pass
+        """Placeholder for operation execution logic"""
+        print(f"Executing: {operation}")

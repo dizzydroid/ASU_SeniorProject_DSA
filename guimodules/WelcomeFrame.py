@@ -37,7 +37,7 @@ class WelcomeFrame(ctk.CTkFrame):
         # Welcome message
         title = ctk.CTkLabel(
             content_frame,
-            text="Welcome to XML Master",
+            text="Welcome to NodeScope",
             font=ctk.CTkFont(size=36, weight="bold"),
             text_color="#1f538d",
         )
@@ -66,34 +66,23 @@ class WelcomeFrame(ctk.CTkFrame):
         start_button.grid(row=3, column=0, pady=30)
 
         # Mode toggle button
-        self.mode_button = ctk.CTkButton(
-            content_frame,
-            text=" Dark Mode",
-            font=ctk.CTkFont(size=18, weight="bold"),
-            command=self.toggle_mode,
-            width=100,
-            height=40,
-            fg_color="#1f538d",
-            hover_color="#14b8a6",
+        self.mode_toggle_button = ctk.CTkLabel(
+            self,
+            text="☀️",  # Sun emoji as a default
+            font=ctk.CTkFont(size=30),
+            text_color="#FFD700",  # Bright gold/yellow color
+            bg_color="transparent",
+            cursor="hand2"
         )
-        self.mode_button.grid(row=4, column=0, pady=20)
-        self.dark_mode_button = ctk.CTkButton(
-            content_frame,
-            text=" light Mode",
-            font=ctk.CTkFont(size=18, weight="bold"),
-            command=self.darktoggle_mode,
-            width=100,
-            height=40,
-            fg_color="#1f538d",
-            hover_color="#14b8a6",
-        )
-        self.dark_mode_button.grid(row=5, column=0, pady=20)
+        self.mode_toggle_button.place(x=30, y=30)  # Position in top-left corner
+        # Add click event
+        self.mode_toggle_button.bind("<Button-1>", self.toggle_mode)
 
-    def toggle_mode(self):
-        current_mode ="light"
-        print(f"Current mode: {current_mode}")  # Debug: Check current mode
-        if current_mode == "light":
-            ctk.set_appearance_mode("dark")
-    def darktoggle_mode(self):
-            current_mode ="dark"
-            ctk.set_appearance_mode("light")
+    def toggle_mode(self, event):
+        current_mode = ctk.get_appearance_mode()
+        if current_mode == "Light":
+            ctk.set_appearance_mode("Dark")
+            self.mode_toggle_button.configure(text="☀️", text_color="#FFD700")
+        else:
+            ctk.set_appearance_mode("Light")
+            self.mode_toggle_button.configure(text="🌙", text_color="#FFD700")

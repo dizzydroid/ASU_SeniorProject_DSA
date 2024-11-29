@@ -12,7 +12,7 @@ class App(ctk.CTk):
         super().__init__()
 
         # Configure window
-        self.title("XML Master")
+        self.title("NodeScope")
         self.geometry("1000x700")
 
         # Center the window
@@ -22,9 +22,8 @@ class App(ctk.CTk):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
 
-        # Configure grid layout for resizing
-        self.grid_columnconfigure(0,
-                                  weight=1)  # higer weight means the column will expand more when the window is resized
+        # Configure grid layout
+        self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
         # Initialize variables
@@ -58,19 +57,19 @@ class App(ctk.CTk):
 
     def load_images(self):
         # Placeholder for image loading - replace with actual paths
-        self.logo_path = "/static/logo.ico"  # Replace with actual logo path
-        self.bg_path = "/path/to/background.png"  # Replace with actual background path
+        self.light_logo_path = r"assets/images/nodescope_light.png"
+        self.dark_logo_path = r"assets/images/nodescope_dark.png"
 
         # Load placeholder images (replace with actual images)
         try:
             self.logo_image = ctk.CTkImage(
-                light_image=Image.open(self.logo_path),
-                dark_image=Image.open(self.logo_path),
-                size=(150, 150)
+                light_image=Image.open(self.dark_logo_path),
+                dark_image=Image.open(self.light_logo_path),
+                size=(500, 150)
             )
-        except:
-            # Create a placeholder if image loading fails
-            self.logo_image = None
+        except Exception as e:
+                print(f"Error loading logo image: {e}")
+                self.logo_image = None
 
     def create_frames(self):
         """Create and initialize all application frames"""
@@ -85,8 +84,7 @@ class App(ctk.CTk):
         # Create an instance of each frame
         for frame_name, frame_class in frame_classes.items():
             frame = frame_class(self)
-            frame.grid(row=0, column=0,
-                       sticky="nsew")  # makes the frame expand to fill the entire cell in the grid, stretching in all directions (north, south, east, and west).
+            frame.grid(row=0, column=0, sticky="nsew")
             self.frames[frame_name] = frame
             frame.grid_remove()  # Hide all frames initially
 
