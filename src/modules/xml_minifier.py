@@ -4,14 +4,25 @@ class XMLMinifier:
     def __init__(self, file_path):
         self.file_path = file_path
 
-    def remove_comments(self, root):
-        """Remove comments from the XML root."""
-        for elem in root.findall('.//*'):
-            comments_to_remove = [
-                c for c in list(elem) if isinstance(c, ET.Element) and c.tag == ET.Comment
-            ]
-            for comment in comments_to_remove:
-                elem.remove(comment)
+    # def remove_comments(self, element):
+    # """Recursively remove comments from the XML elements."""
+    # for child in list(element):
+    #     if isinstance(child, ET.Comment):
+    #         element.remove(child)
+    #     else:
+    #         self.remove_comments(child)
+
+    def remove_comments(self, element):
+        """Recursively remove comments from the XML elements.
+        This function works by checking the tag of each child element.
+        If the tag is a comment, the element is removed. Otherwise,
+        the function recursively processes the child elements.
+        """
+        for child in list(element):
+            if isinstance(child, ET.Element) and isinstance(child.tag, str) and child.tag.startswith("<!--"):
+                element.remove(child)
+            else:
+                self.remove_comments(child)
 
     def clean_element(self, element):
         """Recursively clean up spaces and newlines in the XML elements."""
@@ -25,10 +36,12 @@ class XMLMinifier:
     def minify(self, output_path):
         """Minify the XML by removing comments and cleaning spaces."""
         try:
+            print(f"Parsing XML file: {self.file_path}")
             tree = ET.parse(self.file_path)
             root = tree.getroot()
 
             # Remove comments and clean XML
+            print("Removing comments and cleaning XML elements")
             self.remove_comments(root)
             self.clean_element(root)
 
@@ -40,6 +53,7 @@ class XMLMinifier:
 
         except ET.ParseError as e:
             print(f"Error parsing XML: {e}")
+            raise
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
-
+            raise

@@ -135,6 +135,12 @@ def main():
     decompress_parser.add_argument("-i", "--input", required=True, help="Input compressed file")
     decompress_parser.add_argument("-o", "--output", required=True, help="Output XML file")
 
+    # Cascaded operations command
+    cascade_parser = subparsers.add_parser("cascade", help="Perform cascaded operations")
+    cascade_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+    cascade_parser.add_argument("-o", "--output", required=True, help="Final output file")
+    cascade_parser.add_argument("-ops", "--operations", nargs='+', required=True, help="Sequence of operations (e.g., compress decompress)")
+
     args = parser.parse_args()
 
     if args.command == "verify":
@@ -149,7 +155,43 @@ def main():
         compress_xml(args.input, args.output)
     elif args.command == "decompress":
         decompress_xml(args.input, args.output)
+    elif args.command == "cascade":
+        input_file = args.input
+        intermediate_file = input_file
+        for i, operation in enumerate(args.operations):
+            output_file = f"{args.output}.tmp{i}"
+            try:
+                if operation == "compress":
+                    compress_xml(intermediate_file, output_file)
+                elif operation == "decompress":
+                    decompress_xml(intermediate_file, output_file)
+                elif operation == "minify":
+                    minify_xml(intermediate_file, output_file)
+                elif operation == "format":
+                    format_xml(intermediate_file, output_file)
+                elif operation == "json":
+                    convert_to_json(intermediate_file, output_file)
+                elif operation == "verify":
+                    verify_xml(intermediate_file)
+                else:
+                    print(f"{Fore.RED}Error: Invalid operation {operation}")
+                    return
+            except Exception as e:
+                print(f"{Fore.RED}Error during {operation}: {e}")
+                return
+
+            # Check if the output file was created successfully
+            if not os.path.exists(output_file):
+                print(f"{Fore.RED}Error: {operation} did not produce an output file.")
+                return
+
+            intermediate_file = output_file
+
+        os.rename(intermediate_file, args.output)
+        print(f"{Fore.GREEN}Cascaded operations completed. Final output saved to {args.output}")
+        
     else:
+        print(f"{Fore.RED}Error: Invalid command")
         parser.print_help()
 
 if __name__ == "__main__":
