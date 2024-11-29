@@ -1,5 +1,7 @@
 import customtkinter as ctk
+from tkinter import messagebox
 import os
+import json
 from modules.xml_minifier import XMLMinifier
 from modules.xml_to_json import XMLToJSONConverter
 
