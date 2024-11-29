@@ -91,7 +91,7 @@ class OperationsFrame(ctk.CTkFrame):
     def create_operation_card(self, parent, title, description, icon, row, col):
         """Creates a card for each operation"""
         card = ctk.CTkFrame(parent, fg_color=("#f8fafc", "#2d3748"))
-        card.grid(row=row, column=col, padx=10, pady=4, sticky="nsew")
+        card.grid(row=row, column=col, padx=10, pady=10, sticky="nsew")
 
         # Icon and title
         header_frame = ctk.CTkFrame(card, fg_color="transparent")
