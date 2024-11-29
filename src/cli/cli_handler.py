@@ -63,9 +63,9 @@ def convert_to_json(input_file, output_file):
 
 def minify_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Minifying XML file: {input_file}{Style.RESET_ALL}")
-    minifier = XMLMinifier()
+    minifier = XMLMinifier(input_file)  # Pass the input file path here
     try:
-        minifier.minify(input_file, output_file)
+        minifier.minify(output_file)
         print(f"{Fore.GREEN}Minified XML saved to {output_file}")
     except Exception as e:
         print(f"{Fore.RED}Error during XML minification: {e}")
@@ -121,6 +121,10 @@ def main():
     mini_parser.add_argument("-i", "--input", required=True, help="Input XML file")
     mini_parser.add_argument("-o", "--output", required=True, help="Output minified XML file")
 
+    mini_parser = subparsers.add_parser("minify", help="Minify XML")
+    mini_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+    mini_parser.add_argument("-o", "--output", required=True, help="Output minified XML file")
+
     # Compress command
     compress_parser = subparsers.add_parser("compress", help="Compress XML")
     compress_parser.add_argument("-i", "--input", required=True, help="Input XML file")
@@ -139,7 +143,7 @@ def main():
         format_xml(args.input, args.output)
     elif args.command == "json":
         convert_to_json(args.input, args.output)
-    elif args.command == "mini":
+    elif args.command == "mini" or args.command == "minify":
         minify_xml(args.input, args.output)
     elif args.command == "compress":
         compress_xml(args.input, args.output)
