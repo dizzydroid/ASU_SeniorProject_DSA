@@ -1,4 +1,7 @@
 import customtkinter as ctk
+import os
+from modules.xml_minifier import XMLMinifier
+from modules.xml_to_json import XMLToJSONConverter
 
 
 class OperationsFrame(ctk.CTkFrame):
@@ -133,5 +136,71 @@ class OperationsFrame(ctk.CTkFrame):
         execute_button.pack(pady=(0, 15))
 
     def execute_operation(self, operation):
-        """Placeholder for operation execution logic"""
-        print(f"Executing: {operation}")
+        # Check if XML file is loaded
+        if not self.parent.file_path:
+            messagebox.showerror("Error", "Please load an XML file first.")
+            return
+
+        try:
+            if operation == "Convert to JSON":
+                # Ensure XML content is loaded
+                if not self.parent.xml_content:
+                    with open(self.parent.file_path, 'r') as file:
+                        self.parent.xml_content = file.read()
+
+                # Generate output file path (temporary)
+                output_file = os.path.splitext(self.parent.file_path)[0] + ".json"
+
+                # Create converter and convert file
+                converter = XMLToJSONConverter(self.parent.file_path)
+                converter.convert(output_file)
+
+                # Read the converted JSON
+                with open(output_file, 'r') as file:
+                    json_content = json.dumps(json.load(file), indent=4)
+
+                # Update OutputFrame's text box with JSON content
+                output_frame = self.parent.frames['OutputFrame']
+                output_frame.output_text.delete('1.0', ctk.END)
+                output_frame.output_text.insert(ctk.END, json_content)
+
+                # Update status label
+                output_frame.status_label.configure(
+                    text="XML Converted to JSON",
+                    text_color="#10b981"
+                )
+
+                # Navigate to OutputFrame
+                self.parent.show_frame("OutputFrame")
+                os.remove(output_file)
+
+            elif operation == "Minify XML":
+                output_file = os.path.splitext(self.parent.file_path)[0] + "_minified.xml"
+
+                minifier = XMLMinifier(self.parent.file_path)
+                minifier.minify(output_file)
+
+                # Read the minified XML
+                with open(output_file, 'r') as file:
+                    minified_content = file.read()
+
+                # Update OutputFrame
+                output_frame = self.parent.frames['OutputFrame']
+                output_frame.output_text.delete('1.0', ctk.END)
+                output_frame.output_text.insert(ctk.END, minified_content)
+
+                output_frame.status_label.configure(
+                    text="XML Minified Successfully",
+                    text_color="#10b981"  # Success green color
+                )
+
+                # Navigate to OutputFrame
+                self.parent.show_frame("OutputFrame")
+                os.remove(output_file)
+
+            else:
+                # Placeholder for other operations
+                messagebox.showinfo("Operation", f"{operation} is not yet implemented.")
+
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
