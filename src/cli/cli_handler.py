@@ -43,9 +43,9 @@ def verify_xml(input_file, fix=False, output_file=None):
 
 def format_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Formatting XML file: {input_file}{Style.RESET_ALL}")
-    formatter = XMLFormatter()
+    formatter = XMLFormatter(input_file)
     try:
-        formatter.prettify(input_file, output_file)
+        formatter.prettify(output_file)
         print(f"{Fore.GREEN}Formatted XML saved to {output_file}")
     except Exception as e:
         print(f"{Fore.RED}Error during XML formatting: {e}")
@@ -73,20 +73,24 @@ def minify_xml(input_file, output_file):
 
 def compress_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Compressing XML file: {input_file}{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}(Original File size: {os.path.getsize(input_file)} bytes)")
     compressor = XMLCompressor(input_file)
     try:
         compressor.compress(output_file)
         print(f"{Fore.GREEN}Compressed XML saved to {output_file}")
+        print(f"{Fore.YELLOW}(Compressed File size: {os.path.getsize(output_file)} bytes)")
     except Exception as e:
         print(f"{Fore.RED}Error during XML compression: {e}")
 
 
 def decompress_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Decompressing file: {input_file}{Style.RESET_ALL}")
+    print(f"{Fore.YELLOW}(Original File size: {os.path.getsize(input_file)} bytes)")
     decompressor = XMLDecompressor(input_file)
     try:
         decompressor.decompress(output_file)
         print(f"{Fore.GREEN}Decompressed XML saved to {output_file}")
+        print(f"{Fore.YELLOW}(Decompressed File size: {os.path.getsize(output_file)} bytes)")
     except Exception as e:
         print(f"{Fore.RED}Error during decompression: {e}")
 
