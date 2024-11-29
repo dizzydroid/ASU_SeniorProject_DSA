@@ -88,18 +88,6 @@ class OperationsFrame(ctk.CTkFrame):
         )
         back_button.pack(side="left", padx=10)
 
-        # View Output button
-        """
-        view_output_button = ctk.CTkButton(
-            center_container,
-            text="View Output",
-            width=140,
-            command=lambda: parent.show_frame("OutputFrame"),  # Switch to OutputFrame
-            fg_color="#1f538d",
-            hover_color="#14b8a6"
-        )
-        view_output_button.pack(side="left", padx=10)"""
-
     def create_operation_card(self, parent, title, description, icon, row, col):
         """Creates a card for each operation"""
         card = ctk.CTkFrame(parent, fg_color=("#f8fafc", "#2d3748"))
