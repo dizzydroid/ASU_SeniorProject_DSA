@@ -1,1 +1,11 @@
-##
+# GUI frameworks
+customtkinter==5.1.3  # Optional for enhanced tkinter aesthetics
+
+# Visualization (optional)
+matplotlib==3.8.0
+
+# CLI enhancements
+colorama==0.4.6
+
+# Testing
+pytest==7.4.2
