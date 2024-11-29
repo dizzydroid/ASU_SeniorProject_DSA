@@ -7,6 +7,8 @@ from src.modules.xml_decompressor import XMLDecompressor
 from src.modules.xml_compressor import XMLCompressor
 from src.modules.xml_minifier import XMLMinifier
 from src.modules.xml_to_json import XMLToJSONConverter
+
+
 class OperationsFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent, fg_color="transparent")
@@ -201,7 +203,6 @@ class OperationsFrame(ctk.CTkFrame):
                 self.parent.show_frame("OutputFrame")
                 os.remove(output_file)
 
-
             elif operation == "Compress Data":
                 output_file = os.path.splitext(self.parent.file_path)[0] + "_Compress.xml"
 
@@ -211,8 +212,7 @@ class OperationsFrame(ctk.CTkFrame):
                 # Read the compress Data XML
                 with open(output_file, 'r') as file:
                     compressed_content = file.read()
-                
-             
+
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
                 output_frame.output_text.delete('1.0', ctk.END)
@@ -231,12 +231,11 @@ class OperationsFrame(ctk.CTkFrame):
                 output_file = os.path.splitext(self.parent.file_path)[0] + "_Decompress.xml"
 
                 decompressor = XMLDecompressor(self.parent.file_path)
-                decompressor.decompress (output_file)
+                decompressor.decompress(output_file)
                 # Read the decompress Data XML
                 with open(output_file, 'r') as file:
                     decompressed_content = file.read()
-                
-             
+
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
                 output_frame.output_text.delete('1.0', ctk.END)
@@ -255,12 +254,12 @@ class OperationsFrame(ctk.CTkFrame):
                 output_file = os.path.splitext(self.parent.file_path)[0] + "_Format.xml"
 
                 xml_formatter = XMLFormatter(self.parent.file_path)
-                xml_formatter.prettify (output_file)
-                
+                xml_formatter.prettify(output_file)
+
                 # Read the Format XML
                 with open(output_file, 'r') as file:
                     formatter = file.read()
-                
+
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
                 output_frame.output_text.delete('1.0', ctk.END)
