@@ -1,7 +1,12 @@
-# **XML Editor and Visualizer**
+# **nodescope** | XML Editor and Visualizer
+
+<div id="header" align="left">
+ <img src="assets/nodescope_asu.png">
+</div>
+
 
 ## **Table of Contents**
-- [**XML Editor and Visualizer**](#xml-editor-and-visualizer)
+- [**nodescope** | XML Editor and Visualizer](#nodescope--xml-editor-and-visualizer)
   - [**Table of Contents**](#table-of-contents)
   - [**Introduction**](#introduction)
   - [**Features**](#features)

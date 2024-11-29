@@ -56,9 +56,9 @@ def convert_to_json(input_file, output_file):
     converter = XMLToJSONConverter(input_file)
     try:
         converter.convert(output_file)
-        print(f"{Fore.GREEN}✅ JSON saved to {output_file}")
+        print(f"{Fore.GREEN}JSON saved to {output_file}")
     except Exception as e:
-        print(f"{Fore.RED}❌ Error during XML to JSON conversion: {e}")
+        print(f"{Fore.RED}Error during XML to JSON conversion: {e}")
 
 
 def minify_xml(input_file, output_file):
@@ -73,9 +73,9 @@ def minify_xml(input_file, output_file):
 
 def compress_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Compressing XML file: {input_file}{Style.RESET_ALL}")
-    compressor = XMLCompressor()
+    compressor = XMLCompressor(input_file)
     try:
-        compressor.compress(input_file, output_file)
+        compressor.compress(output_file)
         print(f"{Fore.GREEN}Compressed XML saved to {output_file}")
     except Exception as e:
         print(f"{Fore.RED}Error during XML compression: {e}")
@@ -83,9 +83,9 @@ def compress_xml(input_file, output_file):
 
 def decompress_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Decompressing file: {input_file}{Style.RESET_ALL}")
-    decompressor = XMLDecompressor()
+    decompressor = XMLDecompressor(input_file)
     try:
-        decompressor.decompress(input_file, output_file)
+        decompressor.decompress(output_file)
         print(f"{Fore.GREEN}Decompressed XML saved to {output_file}")
     except Exception as e:
         print(f"{Fore.RED}Error during decompression: {e}")
