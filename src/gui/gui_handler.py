@@ -57,8 +57,8 @@ class App(ctk.CTk):
 
     def load_images(self):
         # Placeholder for image loading - replace with actual paths
-        self.light_logo_path = r"assets/images/nodescope_light.png"
-        self.dark_logo_path = r"assets/images/nodescope_dark.png"
+        self.light_logo_path = r"../../assets/images/nodescope_light.png"
+        self.dark_logo_path = r"../../assets/images/nodescope_dark.png"
 
         # Load placeholder images (replace with actual images)
         try:
