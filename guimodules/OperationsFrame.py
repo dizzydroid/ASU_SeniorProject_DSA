@@ -1,11 +1,12 @@
-import customtkinter as ctk
-from tkinter import messagebox
-import os
 import json
-from modules.xml_minifier import XMLMinifier
-from modules.xml_to_json import XMLToJSONConverter
-
-
+from tkinter import messagebox
+import customtkinter as ctk
+import os
+from src.modules.xml_formatter import XMLFormatter
+from src.modules.xml_decompressor import XMLDecompressor
+from src.modules.xml_compressor import XMLCompressor
+from src.modules.xml_minifier import XMLMinifier
+from src.modules.xml_to_json import XMLToJSONConverter
 class OperationsFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent, fg_color="transparent")
@@ -199,6 +200,81 @@ class OperationsFrame(ctk.CTkFrame):
                 # Navigate to OutputFrame
                 self.parent.show_frame("OutputFrame")
                 os.remove(output_file)
+
+
+            elif operation == "Compress Data":
+                output_file = os.path.splitext(self.parent.file_path)[0] + "_Compress.xml"
+
+                compressor = XMLCompressor(self.parent.file_path)
+                compressor.compress(output_file)
+
+                # Read the compress Data XML
+                with open(output_file, 'r') as file:
+                    compressed_content = file.read()
+                
+             
+                # Update OutputFrame
+                output_frame = self.parent.frames['OutputFrame']
+                output_frame.output_text.delete('1.0', ctk.END)
+                output_frame.output_text.insert(ctk.END, compressed_content)
+
+                output_frame.status_label.configure(
+                    text="XML compressed Successfully",
+                    text_color="#10b981"  # Success green color
+                )
+
+                # Navigate to OutputFrame
+                self.parent.show_frame("OutputFrame")
+                os.remove(output_file)
+
+            elif operation == "Decompress Data":
+                output_file = os.path.splitext(self.parent.file_path)[0] + "_Decompress.xml"
+
+                decompressor = XMLDecompressor(self.parent.file_path)
+                decompressor.decompress (output_file)
+                # Read the decompress Data XML
+                with open(output_file, 'r') as file:
+                    decompressed_content = file.read()
+                
+             
+                # Update OutputFrame
+                output_frame = self.parent.frames['OutputFrame']
+                output_frame.output_text.delete('1.0', ctk.END)
+                output_frame.output_text.insert(ctk.END, decompressed_content)
+
+                output_frame.status_label.configure(
+                    text="XML decompressed Successfully",
+                    text_color="#10b981"  # Success green color
+                )
+
+                # Navigate to OutputFrame
+                self.parent.show_frame("OutputFrame")
+                os.remove(output_file)
+
+            elif operation == "Format XML":
+                output_file = os.path.splitext(self.parent.file_path)[0] + "_Format.xml"
+
+                xml_formatter = XMLFormatter(self.parent.file_path)
+                xml_formatter.prettify (output_file)
+                
+                # Read the Format XML
+                with open(output_file, 'r') as file:
+                    formatter = file.read()
+                
+                # Update OutputFrame
+                output_frame = self.parent.frames['OutputFrame']
+                output_frame.output_text.delete('1.0', ctk.END)
+                output_frame.output_text.insert(ctk.END, formatter)
+
+                output_frame.status_label.configure(
+                    text="XML formatteded Successfully",
+                    text_color="#10b981"  # Success green color
+                )
+
+                # Navigate to OutputFrame
+                self.parent.show_frame("OutputFrame")
+                os.remove(output_file)
+
 
             else:
                 # Placeholder for other operations
