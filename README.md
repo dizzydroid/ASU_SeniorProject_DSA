@@ -1,6 +1,6 @@
 # **nodescope** | XML Editor and Visualizer
 
-<div id="header" align="left">
+<div id="header" align="center">
  <img src="assets/nodescope_asu.png">
 </div>
 
