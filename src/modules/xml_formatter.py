@@ -17,8 +17,7 @@ class XMLFormatter:
         except Exception as e:
             raise Exception(f"An error occurred: {e}")
         lines = (
-            xml_file.replace(" ", "")
-            .replace("\n", "")
+            xml_file.replace("\n", "")
             .replace("<", "\n<")
             .replace(">", ">\n")
             .split("\n")
@@ -28,7 +27,11 @@ class XMLFormatter:
         indent_str = " " * count
         pretty_lines = []
         for line in lines:
-            if line == "":
+            line = line.strip()
+            if line == "" or line.startswith("<!--"):
+                continue
+            elif line.startswith("<?"):
+                pretty_lines.append(line)
                 continue
             elif line.startswith("</"):
                 indent -= 1
@@ -36,19 +39,20 @@ class XMLFormatter:
             pretty_lines.append(indent_str * indent + line)
             if line.startswith("<") and not line.startswith("</"):
                 indent += 1
+            if line.endswith("/>"):
+                indent -= 1
 
         pretty_xml = "\n".join(pretty_lines)
         try:
-            with open(output_path, "w") as f:
+            with open(output_path, "w", encoding="utf-8") as f:
                 xml_file = f.write(pretty_xml)
         except Exception as e:
             raise Exception(f"An error occurred: {e}")
 
 
-# How to use this class:
-# xml_formatter = XMLFormatter("path/to/input.xml")
-# valid = xml_formatter.prettify("path/to/output.xml")
-# if valid:
-#     print("File was successfully written")
-# else:
-#     print(valid)
+xml_formatter = XMLFormatter("./samples/large_sample.xml")
+valid = xml_formatter.prettify("output.xml")
+if not valid:
+    print("File was successfully written")
+else:
+    print(valid)
