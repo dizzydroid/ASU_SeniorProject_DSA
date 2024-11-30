@@ -50,9 +50,9 @@ class XMLFormatter:
             raise Exception(f"An error occurred: {e}")
 
 
-xml_formatter = XMLFormatter("./samples/large_sample.xml")
-valid = xml_formatter.prettify("output.xml")
-if not valid:
-    print("File was successfully written")
-else:
-    print(valid)
+# xml_formatter = XMLFormatter("./samples/commented_sample.xml")
+# valid = xml_formatter.prettify("output.xml")
+# if not valid:
+#     print("File was successfully written")
+# else:
+#     print(valid)
