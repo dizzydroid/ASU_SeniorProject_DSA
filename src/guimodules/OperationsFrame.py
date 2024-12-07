@@ -2,13 +2,12 @@ import json
 from tkinter import messagebox
 import customtkinter as ctk
 import os
+from src.modules.xml_parser import XMLParser
 from src.modules.xml_formatter import XMLFormatter
 from src.modules.xml_decompressor import XMLDecompressor
 from src.modules.xml_compressor import XMLCompressor
 from src.modules.xml_minifier import XMLMinifier
 from src.modules.xml_to_json import XMLToJSONConverter
-
-
 class OperationsFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent, fg_color="transparent")
@@ -35,7 +34,7 @@ class OperationsFrame(ctk.CTkFrame):
         # Operations
         operations = [
             {
-                "title": "Check XML Consistency",
+                "title": "Validate & Correct XML",
                 "description": "Validate XML structure and detect errors",
                 "icon": "🔍"
             },
@@ -203,6 +202,7 @@ class OperationsFrame(ctk.CTkFrame):
                 self.parent.show_frame("OutputFrame")
                 os.remove(output_file)
 
+
             elif operation == "Compress Data":
                 output_file = os.path.splitext(self.parent.file_path)[0] + "_Compress.xml"
 
@@ -212,7 +212,8 @@ class OperationsFrame(ctk.CTkFrame):
                 # Read the compress Data XML
                 with open(output_file, 'r') as file:
                     compressed_content = file.read()
-
+                
+             
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
                 output_frame.output_text.delete('1.0', ctk.END)
@@ -231,11 +232,12 @@ class OperationsFrame(ctk.CTkFrame):
                 output_file = os.path.splitext(self.parent.file_path)[0] + "_Decompress.xml"
 
                 decompressor = XMLDecompressor(self.parent.file_path)
-                decompressor.decompress(output_file)
+                decompressor.decompress (output_file)
                 # Read the decompress Data XML
                 with open(output_file, 'r') as file:
                     decompressed_content = file.read()
-
+                
+             
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
                 output_frame.output_text.delete('1.0', ctk.END)
@@ -249,24 +251,61 @@ class OperationsFrame(ctk.CTkFrame):
                 # Navigate to OutputFrame
                 self.parent.show_frame("OutputFrame")
                 os.remove(output_file)
+            
+            elif operation == "Validate & Correct XML":
+                output_file = os.path.splitext(self.parent.file_path)[0] + "_parser.xml"
+
+                parser = XMLParser(self.parent.file_path)
+                error_count = parser.check_consistency()
+    
+                # Display errors
+                if error_count > 0:
+                    messagebox.showerror("Found", f"{error_count} errors") 
+                    parser.fix_errors()
+                    fixed_file_path = os.path.splitext(self.parent.file_path)[0] + "_fixed.xml"     
+                    with open(fixed_file_path, 'r', encoding='utf-8') as file:
+                        parsered_content = file.read()
+                else:
+                    messagebox.showinfo("XML Status", "XML is valid!")
+                    with open(self.parent.file_path, 'r', encoding='utf-8') as file:
+                            parsered_content = file.read()
+                
+                
+                        
+                      
+                
+                # Update OutputFrame
+                output_frame = self.parent.frames['OutputFrame']
+                output_frame.output_text.delete('1.0', ctk.END)
+                output_frame.output_text.insert(ctk.END, parsered_content)
+
+                output_frame.status_label.configure(
+                    text="The XML file was parsed successfully",
+                    text_color="#10b981"  # Success green color
+                )
+
+                # Navigate to OutputFrame
+                self.parent.show_frame("OutputFrame")
+               # os.remove(output_file)
+
 
             elif operation == "Format XML":
                 output_file = os.path.splitext(self.parent.file_path)[0] + "_Format.xml"
 
                 xml_formatter = XMLFormatter(self.parent.file_path)
-                xml_formatter.prettify(output_file)
-
+                xml_formatter.prettify (output_file)
+                
                 # Read the Format XML
                 with open(output_file, 'r') as file:
                     formatter = file.read()
-
+                
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
                 output_frame.output_text.delete('1.0', ctk.END)
                 output_frame.output_text.insert(ctk.END, formatter)
 
                 output_frame.status_label.configure(
-                    text="XML formatteded Successfully",
+                    text="XML formatted Successfully",
                     text_color="#10b981"  # Success green color
                 )
 
