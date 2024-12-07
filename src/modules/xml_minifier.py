@@ -94,5 +94,5 @@ class XMLMinifier:
             raise
 
 #test
-minifier = XMLMinifier("samples\commented_sample.xml")
-minifier.minify("samples/output.xml")
+#minifier = XMLMinifier("samples\commented_sample.xml")
+#minifier.minify("samples/output.xml")
