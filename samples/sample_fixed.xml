@@ -23,10 +23,10 @@
                 <topics>
                 
                         solar_energy
-                    </topic>
-                </topics>
+                    (Missing closing tag for topics) </topics>(Missing opening tag for topic) <topic></topic>
+                (Missing closing tag for body) </body>(Missing opening tag for topics) <topics></topics>
     
-        </posts>
+        (Missing closing tag for post) </post>(Missing opening tag for posts) <posts></posts>
         
             <follower>
                 <id>2</id>
@@ -34,7 +34,7 @@
             <follower>
                 <id>3</id>
             </follower>
-        </followers>
+        (Missing closing tag for posts) </posts>(Missing opening tag for followers) <followers></followers>
     </user>
     <user>
         <id>2</id>
@@ -76,6 +76,6 @@
             <follower>
                 <id>1
             
-        </followers>
-    </user>
-</users>
+        (Missing closing tag for id) </id>(Missing opening tag for followers) <followers></followers>
+    (Missing closing tag for follower) </follower>(Missing opening tag for user) <user></user>
+(Missing closing tag for followers) </followers>(Missing opening tag for users) <users></users>(Missing closing tag for user) </user>

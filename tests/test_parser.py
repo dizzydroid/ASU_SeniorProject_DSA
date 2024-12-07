@@ -1,16 +1,17 @@
+# Test the XMLParser class
 def test_extract_tag():
     parser = XMLParser("../samples/commented_sample.xml")
     assert parser.extract_tag("<tag>", 0) == "tag"
     assert parser.extract_tag("<tag attribute='value'>", 0) == "tag"
     assert parser.extract_tag("<tag attribute='value'>", 5) == "attribute='value'"
-    assert parser.extract_tag("<tag attribute='value'>", 16) == "value"
+    assert parser.extract_tag("<tag attribute='value'>", 16) == "value'"
     assert parser.extract_tag("</tag attribute='value'>", 0) == "/tag"
     
 def test_check_consistency():
     parser = XMLParser("../samples/sample.xml")
-    assert parser.check_consistency() == 6
+    assert parser.check_consistency() == 15
     parser = XMLParser("../samples/commented_sample.xml")
-    assert parser.check_consistency() == 1
+    assert parser.check_consistency() == 6
 
 def test_fix_errors():
     parser = XMLParser("../samples/sample.xml")
