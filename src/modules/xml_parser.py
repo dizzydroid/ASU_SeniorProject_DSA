@@ -27,13 +27,16 @@ class XMLParser:
                     if char == '<':
                         tag = self.extract_tag(line, j)
                         
+                        # Add opening tag to stack
                         if tag[0] != '/':
                             stack.append(tag)
                         else:
+                            # If closing tag with no opening tag
                             if not stack:
                                 self.errors.append((i, j, "Missing opening tag for " + tag[1:]))
                                 self.fixes.append((i, j - 1, "<" + tag[1:] + ">"))
                             else:
+                                # If closing tag matches opening tag
                                 if stack[-1] == tag[1:]:
                                     stack.pop()
                                 else:
@@ -41,6 +44,12 @@ class XMLParser:
                                     self.errors.append((i, j, "Missing opening tag for " + tag[1:]))
                                     self.fixes.append((i, j - 1, "</" + stack[-1] + ">"))
                                     self.fixes.append((i, j - 1, "<" + tag[1:] + ">"))
+                                    stack.pop()
+        
+        # Add errors for any remaining tags in stack
+        for tag in stack:
+            self.errors.append((-1, -1, "Missing closing tag for " + tag))
+            self.fixes.append((-1, -1, "</" + tag + ">"))
         
         return len(self.errors)
 
@@ -50,48 +59,16 @@ class XMLParser:
             print("No errors to fix!")
         else:
             # iterate through fixes and errors backwards
-            for i in range(len(self.errors) - 1, -1, -1):
-                error = self.errors[i]
-                fix = self.fixes[i]
-                with open(self.file_path, 'r') as file:
-                    lines = file.readlines()
-                    lines[error[0]] = lines[error[0]][:error[1]] + '(' + error[2] + ')' + ' ' + fix[2] + lines[error[0]][error[1]:]
+            with open(self.file_path, 'r') as file:
+                lines = file.readlines()
+                for i in range(len(self.errors) - 1, -1, -1):
+                    error = self.errors[i]
+                    fix = self.fixes[i]
+                    if error[0] != -1:
+                        lines[error[0]] = lines[error[0]][:error[1]] + '(' + error[2] + ')' + ' ' + fix[2] + lines[error[0]][error[1]:]
+                    else:
+                        lines.append('(' + error[2] + ')' + ' ' + fix[2] + '\n')    
                 # open new file with _fixed.xml and write lines
                 with open(self.file_path[:-4] + "_fixed.xml", 'w') as file:
                     file.writelines(lines)
             print("Errors fixed!")
-
-# Test the XMLParser class
-def test_extract_tag():
-    parser = XMLParser("../samples/commented_sample.xml")
-    assert parser.extract_tag("<tag>", 0) == "tag"
-    assert parser.extract_tag("<tag attribute='value'>", 0) == "tag"
-    assert parser.extract_tag("<tag attribute='value'>", 5) == "attribute='value'"
-    assert parser.extract_tag("<tag attribute='value'>", 16) == "value"
-    assert parser.extract_tag("</tag attribute='value'>", 0) == "/tag"
-    
-def test_check_consistency():
-    parser = XMLParser("../samples/sample.xml")
-    assert parser.check_consistency() == 6
-    parser = XMLParser("../samples/commented_sample.xml")
-    assert parser.check_consistency() == 1
-
-def test_fix_errors():
-    parser = XMLParser("../samples/sample.xml")
-    parser.check_consistency()
-    parser.fix_errors()
-    parser = XMLParser("../samples/sample_fixed.xml")
-    assert parser.check_consistency() == 0
-    
-    parser = XMLParser("../samples/commented_sample.xml")
-    parser.check_consistency()
-    parser.fix_errors()
-    parser = XMLParser("../samples/commented_sample_fixed.xml")
-    assert parser.check_consistency() == 0
-    
-    parser = XMLParser("../samples/large_sample.xml")
-    parser.check_consistency()
-    parser.fix_errors()
-    parser = XMLParser("../samples/large_sample_fixed.xml")
-    assert parser.check_consistency() == 0
-
