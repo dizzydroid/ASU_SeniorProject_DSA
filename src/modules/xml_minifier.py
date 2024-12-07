@@ -1,59 +1,84 @@
-import xml.etree.ElementTree as ET
-
 class XMLMinifier:
     def __init__(self, file_path):
         self.file_path = file_path
 
-    # def remove_comments(self, element):
-    # """Recursively remove comments from the XML elements."""
-    # for child in list(element):
-    #     if isinstance(child, ET.Comment):
-    #         element.remove(child)
-    #     else:
-    #         self.remove_comments(child)
-
-    def remove_comments(self, element):
-        """Recursively remove comments from the XML elements.
-        This function works by checking the tag of each child element.
-        If the tag is a comment, the element is removed. Otherwise,
-        the function recursively processes the child elements.
+    def remove_comments(self, xml_content):
         """
-        for child in list(element):
-            if isinstance(child, ET.Element) and isinstance(child.tag, str) and child.tag.startswith("<!--"):
-                element.remove(child)
-            else:
-                self.remove_comments(child)
+        Removes all comments from the XML content.
+        XML comments are of the format <!-- comment -->
+        """
+        result = []
+        inside_comment = False
 
-    def clean_element(self, element):
-        """Recursively clean up spaces and newlines in the XML elements."""
-        if element.text:
-            element.text = element.text.strip()
-        if element.tail:
-            element.tail = element.tail.strip()
-        for child in element:
-            self.clean_element(child)
+        i = 0
+        while i < len(xml_content):
+            if xml_content[i:i+4] == "<!--":
+                inside_comment = True
+                i += 4
+            elif inside_comment and xml_content[i:i+3] == "-->":
+                inside_comment = False
+                i += 3
+            elif not inside_comment:
+                result.append(xml_content[i])
+                i += 1
+            else:
+                i += 1
+
+        return ''.join(result)
+
+    def clean_whitespace(self, xml_content):
+        """
+        Cleans up unnecessary whitespace (e.g., leading/trailing spaces, newlines).
+        Retains significant spaces within text content.
+        """
+        result = []
+        inside_tag = False
+
+        i = 0
+        while i < len(xml_content):
+            char = xml_content[i]
+
+            if char == "<":
+                inside_tag = True
+                result.append(char)
+            elif char == ">":
+                inside_tag = False
+                result.append(char)
+            elif inside_tag:
+                result.append(char)
+            elif not inside_tag:
+                if not char.isspace() or (result and not result[-1].isspace()):
+                    result.append(char)
+
+            i += 1
+
+        return ''.join(result)
 
     def minify(self, output_path):
-        """Minify the XML by removing comments and cleaning spaces."""
+        """
+        Minifies the XML file by removing comments and cleaning unnecessary whitespace.
+        """
         try:
-            print(f"Parsing XML file: {self.file_path}")
-            tree = ET.parse(self.file_path)
-            root = tree.getroot()
+            with open(self.file_path, 'r', encoding='utf-8') as file:
+                xml_content = file.read()
 
-            # Remove comments and clean XML
-            print("Removing comments and cleaning XML elements")
-            self.remove_comments(root)
-            self.clean_element(root)
+            
+            xml_content = self.remove_comments(xml_content)
+            xml_content = self.clean_whitespace(xml_content)
 
-            # Write the cleaned XML to the output file
-            with open(output_path, 'wb') as f:
-                f.write(ET.tostring(root, encoding='utf-8'))
+            
+            with open(output_path, 'w', encoding='utf-8') as file:
+                file.write(xml_content)
 
             print(f"Minified XML written to {output_path}")
 
-        except ET.ParseError as e:
-            print(f"Error parsing XML: {e}")
+        except FileNotFoundError:
+            print(f"Error: File '{self.file_path}' not found.")
             raise
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             raise
+
+#test
+#minifier = XMLMinifier("samples\commented_sample.xml")
+#minifier.minify("samples/output.xml")
