@@ -12,6 +12,8 @@ class XMLParser:
                 break
             elif char == '<':
                 continue
+            elif char == '?' or char == '!':
+                return -1
             tag += char
         return tag
     
@@ -27,6 +29,8 @@ class XMLParser:
                     if char == '<':
                         tag = self.extract_tag(line, j)
                         
+                        if tag == -1:
+                            continue
                         # Add opening tag to stack
                         if tag[0] != '/':
                             stack.append(tag)
@@ -74,6 +78,6 @@ class XMLParser:
             print("Errors fixed!")
 
 
-# parser = XMLParser("samples/commented_sample.xml")
-# parser.check_consistency()
-# parser.fix_errors()
+parser = XMLParser("samples/commented_sample.xml")
+parser.check_consistency()
+parser.fix_errors()
