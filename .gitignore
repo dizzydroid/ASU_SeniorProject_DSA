@@ -1,0 +1,17 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Environment and build artifacts
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# IDE and editor-specific files
+.vs/
+.idea/
+
+# Error log file
+error_log.txt
