@@ -1,12 +1,11 @@
 import sys
 import os
 from colorama import Fore, Style, init
+import shutil
+
 # Add the project root to sys.path dynamically
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(project_root)
-
-# Initialize colorama
-init(autoreset=True)
 
 # cli args
 import argparse
@@ -18,11 +17,42 @@ from src.modules.xml_compressor import XMLCompressor
 from src.modules.xml_decompressor import XMLDecompressor
 
 #TODO: Add logging
-#TODO: modify parser handling
-#TODO: Extension overriding 
+
+# Initialize colorama
+init(autoreset=True)
+
+# Utility function to handle file extensions
+def add_extension(file_path, extension):
+    if not file_path.endswith(extension):
+        return f"{file_path}{extension}"
+    return file_path
+
+# Default output file function
+def get_default_output(input_file, operation):
+    # Determine default extension based on operation
+    extension_map = {
+        "json": ".json",
+        "format": ".formatted.xml",
+        "mini": ".minified.xml",
+        "minify": ".minified.xml",
+        "compress": ".compressed.xml",
+        "decompress": ".decompressed.xml",
+        "verify": "_fixed.xml"
+    }
+    
+    extension = extension_map.get(operation, ".xml")  # Default to .xml if not found
+    return add_extension(input_file, extension)
+
+
+# CLI commands
 
 def verify_xml(input_file, fix=False, output_file=None):
     print(f"{Style.BRIGHT}{Fore.CYAN}Verifying XML file: {input_file}{Style.RESET_ALL}")
+
+    base_filename = os.path.splitext(input_file)[0]  # Get the base filename without extension
+    if not output_file:
+        output_file = f"{base_filename}_fixed.xml"
+
     parser = XMLParser(input_file)  # Pass the input file to the XMLParser instance
     try:
         # First check for consistency
@@ -43,17 +73,30 @@ def verify_xml(input_file, fix=False, output_file=None):
             # If the --fix flag is set, fix errors
             if fix:
                 parser.fix_errors()  # Fix the errors
-                print(f"{Fore.GREEN}Errors fixed and saved to {input_file[:-4]}_fixed.xml")
+                output_file = output_file or get_default_output(input_file, "verify")
+                print(f"{Fore.GREEN}Errors fixed and saved to {output_file}")
             else:
-                print(f"{Fore.RED}No fixes applied. Use --fix to correct the errors.")
+                print(f"{Fore.RED}No fixes applied. Please use --fix to correct the errors.")
+                # Prompting the user to use verify --fix for fixing errors
+                return False  # Return False to indicate that errors were not fixed
     except Exception as e:
         print(f"{Fore.RED}Error during XML verification: {e}")
+        return False
+
+    return True  # Return True if no errors found or errors were fixed
+
 
 
 def format_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Formatting XML file: {input_file}{Style.RESET_ALL}")
+
+    base_filename = os.path.splitext(input_file)[0] # Get the base filename without extension
+    if not output_file:
+        output_file = f"{base_filename}_formatted.xml"
+
     formatter = XMLFormatter(input_file)
     try:
+        output_file = output_file or get_default_output(input_file, "format")
         formatter.prettify(output_file)
         print(f"{Fore.GREEN}Formatted XML saved to {output_file}")
     except Exception as e:
@@ -62,18 +105,35 @@ def format_xml(input_file, output_file):
 
 def convert_to_json(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Converting XML file: {input_file} to JSON.{Style.RESET_ALL}")
-    converter = XMLToJSONConverter(input_file)
+
+    base_filename = os.path.splitext(input_file)[0]  # Get the base filename without extension
+    if not output_file:
+        output_file = f"{base_filename}.json"
+
     try:
+        converter = XMLToJSONConverter(input_file)
+        output_file = output_file or get_default_output(input_file, "json")
         converter.convert(output_file)
         print(f"{Fore.GREEN}JSON saved to {output_file}")
+
     except Exception as e:
+        # If an error occurs (likely due to invalid XML)
         print(f"{Fore.RED}Error during XML to JSON conversion: {e}")
+        print(f"{Fore.YELLOW}It seems there is an issue with the XML format. Please verify and fix the XML using the 'verify' command.")
+        print(f"{Fore.YELLOW}Example: `python cli_handler.py verify -i {input_file} -f` to fix errors.")
+
 
 
 def minify_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Minifying XML file: {input_file}{Style.RESET_ALL}")
+    
+    base_filename = os.path.splitext(input_file)[0] # Get the base filename without extension
+    if not output_file:
+        output_file = f"{base_filename}_minified.xml"
+
     minifier = XMLMinifier(input_file) 
     try:
+        output_file = output_file or get_default_output(input_file, "minify")
         minifier.minify(output_file)
         print(f"{Fore.GREEN}Minified XML saved to {output_file}")
     except Exception as e:
@@ -82,9 +142,15 @@ def minify_xml(input_file, output_file):
 
 def compress_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Compressing XML file: {input_file}{Style.RESET_ALL}")
+
+    base_filename = os.path.splitext(input_file)[0] # Get the base filename without extension
+    if not output_file:
+        output_file = f"{base_filename}_compressed.xml"
+
     print(f"{Fore.YELLOW}(Original File size: {os.path.getsize(input_file)} bytes)")
     compressor = XMLCompressor(input_file)
     try:
+        output_file = output_file or get_default_output(input_file, "compress")
         compressor.compress(output_file)
         print(f"{Fore.GREEN}Compressed XML saved to {output_file}")
         print(f"{Fore.YELLOW}(Compressed File size: {os.path.getsize(output_file)} bytes)")
@@ -94,14 +160,102 @@ def compress_xml(input_file, output_file):
 
 def decompress_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Decompressing file: {input_file}{Style.RESET_ALL}")
+
+    base_filename = os.path.splitext(input_file)[0] # Get the base filename without extension
+    if not output_file:
+        output_file = f"{base_filename}_decompressed.xml"
+
     print(f"{Fore.YELLOW}(Original File size: {os.path.getsize(input_file)} bytes)")
     decompressor = XMLDecompressor(input_file)
     try:
+        output_file = output_file or get_default_output(input_file, "decompress")
         decompressor.decompress(output_file)
         print(f"{Fore.GREEN}Decompressed XML saved to {output_file}")
         print(f"{Fore.YELLOW}(Decompressed File size: {os.path.getsize(output_file)} bytes)")
     except Exception as e:
         print(f"{Fore.RED}Error during decompression: {e}")
+
+def cascade_operations(input_file, output_file, operations):
+    # Check if the input file has an extension, if not, append '.xml'
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+    print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
+
+    intermediate_file = input_file  # Start with the original input file
+    final_output_extension = '.xml'  # Default extension for output files
+    
+    for i, operation in enumerate(operations):
+        # Generate intermediate output file with a unique name
+        temp_output_file = f"{output_file}.tmp{i}"
+        
+        try:
+            if operation == "compress":
+                compress_xml(intermediate_file, temp_output_file)
+            elif operation == "decompress":
+                decompress_xml(intermediate_file, temp_output_file)
+            elif operation == "minify":
+                minify_xml(intermediate_file, temp_output_file)
+            elif operation == "format":
+                format_xml(intermediate_file, temp_output_file)
+            elif operation == "json":
+                convert_to_json(intermediate_file, temp_output_file)
+                final_output_extension = '.json'  # If 'json' operation is performed, change extension
+            elif operation == "verify":
+                # If the operation is 'verify', don't expect an output file
+                verify_xml(intermediate_file, fix=False)  # Just validate
+                print(f"{Fore.LIGHTMAGENTA_EX}XML verification passed for {intermediate_file}")
+                continue  # Skip file output for verify
+            else:
+                print(f"{Fore.RED}Error: Invalid operation {operation}")
+                return
+
+        except Exception as e:
+            print(f"{Fore.RED}Error during {operation}: {e}")
+            return
+
+        # After the operation, check if the output file was created successfully
+        if not os.path.exists(temp_output_file):
+            print(f"{Fore.RED}Error: {operation} did not produce an output file.")
+            return
+
+        # Remove the original file if it's an intermediate step, but not the input file
+        if os.path.exists(intermediate_file) and intermediate_file != input_file:
+            os.remove(intermediate_file)
+
+        # Set the intermediate file to the new temp_output_file for the next operation
+        intermediate_file = temp_output_file
+    
+    # Check if user provided an output file name with -o
+    if output_file:
+        # If the user provided -o but the extension is not correct, append the correct one
+        if not output_file.endswith(final_output_extension):
+            output_file = f"{output_file}{final_output_extension}"
+    else:
+        # If no output file was provided, default to using the final extension
+        output_file = f"{output_file}{final_output_extension}"
+
+    # Check if the user has already specified the correct extension in -o
+    if final_output_extension == '.json' and not output_file.endswith('.json'):
+        output_file = f"{output_file}.json"
+
+    # Before renaming, check if the final output file exists
+    if os.path.exists(output_file):
+        os.remove(output_file)  # Delete the existing output file to avoid FileExistsError
+
+    # Clean up temporary files
+    temp_files = [f"{output_file}.tmp{i}" for i in range(len(operations))]
+    for temp_file in temp_files:
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
+
+    # Set the final output file name with the correct extension
+    final_output_file = output_file  # It's already fixed here
+
+    # Move the last intermediate file to the final output location
+    shutil.move(intermediate_file, final_output_file)
+    print(f"{Fore.LIGHTGREEN_EX}\nCascaded operations completed. Final output saved to {final_output_file}")
+
+
 
 
 
@@ -118,31 +272,31 @@ def main():
     # Format command
     format_parser = subparsers.add_parser("format", help="Prettify XML")
     format_parser.add_argument("-i", "--input", required=True, help="Input XML file")
-    format_parser.add_argument("-o", "--output", required=True, help="Output formatted XML file")
+    format_parser.add_argument("-o", "--output", help="Output formatted XML file")
 
     # JSON command
     json_parser = subparsers.add_parser("json", help="Convert XML to JSON")
     json_parser.add_argument("-i", "--input", required=True, help="Input XML file")
-    json_parser.add_argument("-o", "--output", required=True, help="Output JSON file")
+    json_parser.add_argument("-o", "--output", help="Output JSON file")
 
     # Minify command
     mini_parser = subparsers.add_parser("mini", help="Minify XML")
     mini_parser.add_argument("-i", "--input", required=True, help="Input XML file")
-    mini_parser.add_argument("-o", "--output", required=True, help="Output minified XML file")
+    mini_parser.add_argument("-o", "--output", help="Output minified XML file")
 
     mini_parser = subparsers.add_parser("minify", help="Minify XML")
     mini_parser.add_argument("-i", "--input", required=True, help="Input XML file")
-    mini_parser.add_argument("-o", "--output", required=True, help="Output minified XML file")
+    mini_parser.add_argument("-o", "--output", help="Output minified XML file")
 
     # Compress command
     compress_parser = subparsers.add_parser("compress", help="Compress XML")
     compress_parser.add_argument("-i", "--input", required=True, help="Input XML file")
-    compress_parser.add_argument("-o", "--output", required=True, help="Output compressed file")
+    compress_parser.add_argument("-o", "--output", help="Output compressed file")
 
     # Decompress command
     decompress_parser = subparsers.add_parser("decompress", help="Decompress XML")
     decompress_parser.add_argument("-i", "--input", required=True, help="Input compressed file")
-    decompress_parser.add_argument("-o", "--output", required=True, help="Output XML file")
+    decompress_parser.add_argument("-o", "--output", help="Output XML file")
 
     # Cascaded operations command
     cascade_parser = subparsers.add_parser("cascade", help="Perform cascaded operations")
@@ -165,48 +319,7 @@ def main():
     elif args.command == "decompress":
         decompress_xml(args.input, args.output)
     elif args.command == "cascade":
-        input_file = args.input
-        intermediate_file = input_file
-        for i, operation in enumerate(args.operations):
-            output_file = f"{args.output}.tmp{i}"
-            try:
-                if operation == "compress":
-                    compress_xml(intermediate_file, output_file)
-                elif operation == "decompress":
-                    decompress_xml(intermediate_file, output_file)
-                elif operation == "minify":
-                    minify_xml(intermediate_file, output_file)
-                elif operation == "format":
-                    format_xml(intermediate_file, output_file)
-                elif operation == "json":
-                    convert_to_json(intermediate_file, output_file)
-                elif operation == "verify":
-                    verify_xml(intermediate_file)
-                else:
-                    print(f"{Fore.RED}Error: Invalid operation {operation}")
-                    return
-            except Exception as e:
-                print(f"{Fore.RED}Error during {operation}: {e}")
-                return
-
-            # Check if the output file was created successfully
-            if not os.path.exists(output_file):
-                print(f"{Fore.RED}Error: {operation} did not produce an output file.")
-                return
-
-            # Delete the intermediate temporary file after the operation is done
-            if os.path.exists(intermediate_file):
-                os.remove(intermediate_file)
-            
-            intermediate_file = output_file
-        
-        # Before renaming, check if the final output file exists
-        if os.path.exists(args.output):
-            os.remove(args.output)  # Delete the existing output file to avoid FileExistsError
-
-        os.rename(intermediate_file, args.output)
-        print(f"{Fore.GREEN}Cascaded operations completed. Final output saved to {args.output}")
-        
+        cascade_operations(args.input, args.output, args.operations)      
     else:
         print(f"{Fore.RED}Error: Invalid command")
         parser.print_help()
