@@ -78,6 +78,6 @@ class XMLParser:
             print("Errors fixed!")
 
 
-parser = XMLParser("samples/commented_sample.xml")
-parser.check_consistency()
-parser.fix_errors()
+# parser = XMLParser("Your file path here")
+# parser.check_consistency()
+# parser.fix_errors()
