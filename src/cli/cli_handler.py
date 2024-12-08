@@ -31,9 +31,15 @@ def verify_xml(input_file, fix=False, output_file=None):
             print(f"{Fore.GREEN}XML is valid.")
         else:
             print(f"{Fore.RED}XML is invalid. Errors found: {error_count}")
-            for line, error in parser.errors:
-                print(f"  {Fore.YELLOW}Line {line}: {error}")
-            
+            for error_item in parser.errors:
+                line = error_item[0]  # Line number where the error occurred
+                error_message = error_item[1]  # The error message
+                extra_info = error_item[2:]  # Additional info, if any
+
+                print(f"  {Fore.YELLOW}Line {line}: {error_message}")
+                if extra_info:
+                    print(f"    {Fore.YELLOW}Additional info: {extra_info}")
+
             # If the --fix flag is set, fix errors
             if fix:
                 parser.fix_errors()  # Fix the errors

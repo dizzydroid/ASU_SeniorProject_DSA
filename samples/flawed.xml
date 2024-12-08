@@ -1,0 +1,11 @@
+<opening>
+    <title>
+        a flawed xml file for testing purposes
+    <body>
+        lorem ipsum dolor sit amet
+    </body>
+    <closing>
+        <signature>
+            John Doe
+        </signature>
+</opening>
