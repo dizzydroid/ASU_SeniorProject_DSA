@@ -72,3 +72,8 @@ class XMLParser:
                 with open(self.file_path[:-4] + "_fixed.xml", 'w') as file:
                     file.writelines(lines)
             print("Errors fixed!")
+
+
+# parser = XMLParser("samples/commented_sample.xml")
+# parser.check_consistency()
+# parser.fix_errors()

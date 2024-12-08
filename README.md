@@ -52,7 +52,7 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
    ```
 2. Navigate to the project folder:
    ```bash
-   cd your-repo-name
+   cd ASU_SeniorProject_DSA
    ```
 3. Install dependencies:
    ```bash

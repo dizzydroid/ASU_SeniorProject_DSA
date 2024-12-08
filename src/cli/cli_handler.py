@@ -18,25 +18,28 @@ from src.modules.xml_compressor import XMLCompressor
 from src.modules.xml_decompressor import XMLDecompressor
 
 #TODO: Add logging
+#TODO: modify parser handling
+#TODO: Extension overriding 
 
 def verify_xml(input_file, fix=False, output_file=None):
     print(f"{Style.BRIGHT}{Fore.CYAN}Verifying XML file: {input_file}{Style.RESET_ALL}")
-    parser = XMLParser()
+    parser = XMLParser(input_file)  # Pass the input file to the XMLParser instance
     try:
-        if fix:
-            if output_file:
-                parser.fix_errors(input_file, output_file)
-                print(f"{Fore.GREEN}Fixed errors and saved the corrected XML to {output_file}")
-            else:
-                print(f"{Fore.RED}Error: Please provide an output file to save the corrected XML.")
+        # First check for consistency
+        error_count = parser.check_consistency()  # Returns number of errors found
+        if error_count == 0:
+            print(f"{Fore.GREEN}XML is valid.")
         else:
-            is_valid, errors = parser.check_consistency(input_file)
-            if is_valid:
-                print(f"{Fore.GREEN}XML is valid.")
+            print(f"{Fore.RED}XML is invalid. Errors found: {error_count}")
+            for line, error in parser.errors:
+                print(f"  {Fore.YELLOW}Line {line}: {error}")
+            
+            # If the --fix flag is set, fix errors
+            if fix:
+                parser.fix_errors()  # Fix the errors
+                print(f"{Fore.GREEN}Errors fixed and saved to {input_file[:-4]}_fixed.xml")
             else:
-                print(f"{Fore.RED}XML is invalid. Errors found:")
-                for line, error in errors.items():
-                    print(f"  {Fore.YELLOW}Line {line}: {error}")
+                print(f"{Fore.RED}No fixes applied. Use --fix to correct the errors.")
     except Exception as e:
         print(f"{Fore.RED}Error during XML verification: {e}")
 
@@ -63,7 +66,7 @@ def convert_to_json(input_file, output_file):
 
 def minify_xml(input_file, output_file):
     print(f"{Style.BRIGHT}{Fore.CYAN}Minifying XML file: {input_file}{Style.RESET_ALL}")
-    minifier = XMLMinifier(input_file)  # Pass the input file path here
+    minifier = XMLMinifier(input_file) 
     try:
         minifier.minify(output_file)
         print(f"{Fore.GREEN}Minified XML saved to {output_file}")
@@ -185,7 +188,15 @@ def main():
                 print(f"{Fore.RED}Error: {operation} did not produce an output file.")
                 return
 
+            # Delete the intermediate temporary file after the operation is done
+            if os.path.exists(intermediate_file):
+                os.remove(intermediate_file)
+            
             intermediate_file = output_file
+        
+        # Before renaming, check if the final output file exists
+        if os.path.exists(args.output):
+            os.remove(args.output)  # Delete the existing output file to avoid FileExistsError
 
         os.rename(intermediate_file, args.output)
         print(f"{Fore.GREEN}Cascaded operations completed. Final output saved to {args.output}")
