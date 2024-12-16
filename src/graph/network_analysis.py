@@ -1,4 +1,4 @@
-from src.graph.graph_representation import Graph
+from graph_representation import GraphRepresentation as Graph
 
 class NetworkAnalysis:
     def __init__(self, graph: Graph):
@@ -35,3 +35,6 @@ class NetworkAnalysis:
                 if second_degree_friend != user_id and second_degree_friend not in self.graph.adjacency_list[user_id]:
                     suggestions[second_degree_friend] = suggestions.get(second_degree_friend, 0) + 1
         return sorted(suggestions.keys(), key=lambda x: suggestions[x], reverse=True)
+
+gg=Graph('/mnt/Extras/drive/College/_colcode/ASU_SeniorProject_DSA/samples/sample.xml')
+print(gg)
