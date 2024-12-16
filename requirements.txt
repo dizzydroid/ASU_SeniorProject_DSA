@@ -3,6 +3,7 @@ customtkinter==5.1.3  # Optional for enhanced tkinter aesthetics
 
 # Visualization (optional)
 matplotlib==3.8.0
+networkx==3.4.2
 
 # CLI enhancements
 colorama==0.4.6
