@@ -1,8 +1,8 @@
 from graph_representation import GraphRepresentation as Graph
-
+import networkx as nx
 class NetworkAnalysis:
     def __init__(self, graph: Graph):
-        self.graph = graph.graph
+        self.graph : nx.DiGraph = graph.graph
 
     def get_most_active_user(self):
         """
@@ -16,13 +16,16 @@ class NetworkAnalysis:
         """
         return self.get_most_active_user()
 
-    def get_mutual_users(self, user_ids):
+    def get_mutual_users(self, user_ids: list):
         """
         Returns mutual friends among given users.
         """
-        mutual = set(self.graph.adjacency_list[user_ids[0]])
+        if not user_ids:
+            return []
+        mutual = set(self.graph.successors(user_ids[0]))
         for user_id in user_ids[1:]:
-            mutual &= set(self.graph.adjacency_list[user_id])
+            mutual &= set(self.graph.successors(user_id))
+
         return list(mutual)
 
     def get_suggested_users(self, user_id):
