@@ -12,9 +12,24 @@ class NetworkAnalysis:
 
     def get_most_influencer_user(self):
         """
-        Returns the user with the highest influence (centrality metric).
+        Returns the user with the highest influence in the network (most followers).
+        Uses a priority queue (heap) to efficiently find the user with most followers.
+        
+        Returns:
+            str: User ID of the most influential user
         """
-        return self.get_most_active_user()
+        # Create a list to store (-follower_count, user_id) tuples
+        # Using negative count for max heap since heapq implements min heap
+        influence_heap = []
+        
+        # Count followers for each user
+        for user in self.graph.nodes():
+            follower_count = len(list(self.graph.predecessors(user)))
+            # Push negative count for max heap behavior
+            heapq.heappush(influence_heap, (-follower_count, user))
+        
+        # Get the user with the highest number of followers
+        return influence_heap[0][1] if influence_heap else None
 
     def get_mutual_users(self, user_ids: list):
         """
