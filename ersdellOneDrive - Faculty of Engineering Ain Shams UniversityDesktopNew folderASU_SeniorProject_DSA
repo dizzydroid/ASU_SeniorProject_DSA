@@ -1,0 +1,247 @@
+[33mcommit 5e459f2b1f7d73ce1241ce970d58111c6b5b98b5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mpost_search[m[33m, [m[1;31morigin/post_search[m[33m)[m
+Author: EsraaAtef2101016 <esraaatef011529@gmail.com>
+Date:   Thu Dec 19 01:25:09 2024 +0200
+
+    add search_word function
+
+[33mcommit 4af6ed9fe7e8a81a58d43b74a25192ef46fb9290[m
+Merge: d464395 13976e2
+Author: seifelwarwary <seifelwarwary@gmail.com>
+Date:   Mon Dec 16 20:51:19 2024 +0200
+
+    Merge pull request #5 from dizzydroid/sa/mutual_followers
+    
+    added function to get mutual followers
+
+[33mcommit 13976e2b253fa26351fea4935d921a203eec93b3[m
+Author: Seif Elwarwary <seif.ahmed@3segypt.com>
+Date:   Mon Dec 16 20:49:30 2024 +0200
+
+    added function to get mutual followers
+
+[33mcommit d464395e8a760c465e16d6b3f5aa3f0ed668ad7e[m
+Author: Seif Elwarwary <seif.ahmed@3segypt.com>
+Date:   Mon Dec 16 20:38:24 2024 +0200
+
+    changed graph var to use the graph object
+
+[33mcommit 97a27b1aeb9db6b28eabe7e1115f5c32c0705d54[m
+Author: Seif Elwarwary <seif.ahmed@3segypt.com>
+Date:   Mon Dec 16 20:35:40 2024 +0200
+
+    fixed import paths
+
+[33mcommit e071ecc8c503c4a5fa58da9a56eb02a2cea22955[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Mon Dec 16 16:47:09 2024 +0200
+
+    Initialize Level 2 modules
+
+[33mcommit c62560c52409af81067e66781839a1eeb72dc4cc[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Mon Dec 16 13:55:22 2024 +0200
+
+    Update repo structure for graph operations
+
+[33mcommit 612721ecd72ceda888012c98587a7dc76a83fadf[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Sun Dec 8 15:44:30 2024 +0200
+
+    Handle extension overriding, Improve cascade method
+
+[33mcommit 267697932b912c9cd53b37d6d37e6636a9c89247[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Sun Dec 8 14:52:32 2024 +0200
+
+    Enhance parsing functionality in cli handler
+
+[33mcommit 01854b1ddceccc663c49b20a0d6e71a796052e57[m
+Author: Abdelrahman Hany <boody753107@gmail.com>
+Date:   Sun Dec 8 13:16:00 2024 +0200
+
+    Fixed Parser and added test case file
+
+[33mcommit e63f234da65e734637773e6a596dea915504546e[m
+Author: Abdelrahman Hany <boody753107@gmail.com>
+Date:   Sun Dec 8 13:14:05 2024 +0200
+
+    Fixed parser comment and xml type handling
+
+[33mcommit a9f523cb855754f76895dc1334c48ac7c21bfedc[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Sun Dec 8 12:35:49 2024 +0200
+
+    Cache cleanup
+
+[33mcommit f7c2ed3cc1e68f61e0ae2ca0dd34ea47d670b9a6[m
+Merge: d72f49a ea5d7ef
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Sun Dec 8 12:11:28 2024 +0200
+
+    Merge branch 'main' of https://github.com/dizzydroid/ASU_SeniorProject_DSA into GUI
+
+[33mcommit ea5d7efe3ba4b93502f666bde2dd01af8f09ce90[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Sun Dec 8 12:07:46 2024 +0200
+
+    Modify cli handler to use Parser module, Enhance cascaded operations
+
+[33mcommit 64d9050434f13c5661f0c11bc463b3dc82d75da9[m
+Author: EsraaAtef2101016 <esraaatef011529@gmail.com>
+Date:   Sun Dec 8 00:07:43 2024 +0200
+
+    Add comments to test the functionality of the code in the XMLMinifier class.
+
+[33mcommit 4f0edcfa447be938bac8d7e331338f2c836ec025[m
+Author: EsraaAtef2101016 <esraaatef011529@gmail.com>
+Date:   Sat Dec 7 23:35:01 2024 +0200
+
+    edit xml_minifier
+
+[33mcommit d72f49a1de34ae71a05074f4c6e7860a1f9673ff[m
+Author: AlaaAtef2003 <alaaatef413@gmail.com>
+Date:   Sat Dec 7 22:35:37 2024 +0200
+
+    implement parser operation
+
+[33mcommit b797be783f598610427b86fed204131593da4c67[m
+Author: OmarMamon <omar.mamon203@gmail.com>
+Date:   Sat Dec 7 21:15:21 2024 +0200
+
+    Ignore error log file
+
+[33mcommit 3db76203f4b59188c65aa685d3d4620b52e22c94[m
+Merge: 467ad81 093cdf8
+Author: Omar Mamon <109483886+Spafic@users.noreply.github.com>
+Date:   Sat Dec 7 21:04:29 2024 +0200
+
+    Merge pull request #4 from dizzydroid/feature/xml-to-json
+    
+    Refactor XML to JSON conversion
+
+[33mcommit 093cdf8ff9f62ebc7461c7d555c3bcdbd732ce91[m
+Author: OmarMamon <omar.mamon203@gmail.com>
+Date:   Sat Dec 7 21:02:38 2024 +0200
+
+    Refactor XML to JSON conversion: Implement custom tree builder and parser
+
+[33mcommit 467ad81c20ce4db022e8e283855f9a1553bff44e[m
+Merge: 619ede4 693f350
+Author: Abdelrahman Hany Mohamed <113354809+DopeBiscuit@users.noreply.github.com>
+Date:   Sat Dec 7 17:31:22 2024 +0200
+
+    Merge pull request #3 from dizzydroid/Parser
+    
+    Parser
+
+[33mcommit 693f350e45437d60f88553aa4cf4715400b2080b[m
+Author: Abdelrahman Hany <boody753107@gmail.com>
+Date:   Sat Dec 7 16:02:00 2024 +0200
+
+    Added sample files for unit tests
+
+[33mcommit 9da21d087b2c4a2f4e5016e0fa5d1aabeda20ae6[m
+Author: Abdelrahman Hany <boody753107@gmail.com>
+Date:   Sat Dec 7 15:59:51 2024 +0200
+
+    Added Unit tests for the XMLParser methods, added sample files
+
+[33mcommit 8760fbd96f57004aa8f8d35f180fc04ac33c0d40[m
+Author: Abdelrahman Hany <boody753107@gmail.com>
+Date:   Sat Dec 7 13:09:21 2024 +0200
+
+    Added XML tag extractor, and consistency check function, and fix errors function
+
+[33mcommit 619ede4b2352bf6c771dc0db85e810e883774b98[m
+Author: Youssef9112 <youssefshahean0@gmail.com>
+Date:   Sat Nov 30 03:54:49 2024 +0200
+
+    Modified the comments
+
+[33mcommit dba4ac7b78b30149b45501ccaa7d82aa489d2a07[m
+Author: Youssef9112 <youssefshahean0@gmail.com>
+Date:   Sat Nov 30 03:53:12 2024 +0200
+
+    Refactor XMLFormatter to improve whitespace handling and add support for comments, while ensuring UTF-8 encoding for output files
+
+[33mcommit b49275b9aa802ff78d408714192839e19d96726c[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Fri Nov 29 22:47:20 2024 +0200
+
+    Add cascaded operations functionality to cli_handler
+
+[33mcommit f9eff63fc3514119470b0a26f019236c18ea72e4[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Fri Nov 29 21:30:53 2024 +0200
+
+    Remove unused files and configurations from the project, implement minifier commands
+
+[33mcommit f3169f5fc848ced5ae9ef316424c586178f992cb[m
+Merge: bc4146d 63dfaf8
+Author: Shehab <127568346+dizzydroid@users.noreply.github.com>
+Date:   Fri Nov 29 21:16:12 2024 +0200
+
+    Merge pull request #2 from dizzydroid/XMLMinifier
+    
+    Xml minifier
+
+[33mcommit 63dfaf8a061cbd6f407f10c918ea2e794b1f37c7[m
+Merge: 0e158fc bc4146d
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Fri Nov 29 20:58:34 2024 +0200
+
+    Merge branch 'main' of https://github.com/dizzydroid/ASU_SeniorProject_DSA into XMLMinifier
+
+[33mcommit 9f0222a8cf6e006baccada9abec6bee7f80dde97[m
+Author: HabibaMowafy <habibamowafy24@gmail.com>
+Date:   Fri Nov 29 20:04:19 2024 +0200
+
+    logo path edit
+
+[33mcommit bf98e4287365a025278d1a65ef82ee126bc3ea7e[m
+Author: HabibaMowafy <habibamowafy24@gmail.com>
+Date:   Fri Nov 29 20:00:31 2024 +0200
+
+    file organization
+
+[33mcommit 9bb65e78f9802b030bc8964a54c0f977d1ab1f6c[m
+Author: AlaaAtef2003 <alaaatef413@gmail.com>
+Date:   Fri Nov 29 19:28:10 2024 +0200
+
+    adding compressed ,decompressed and formating operations
+
+[33mcommit bc4146dbd2577db080508f919cc53956e062912e[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Fri Nov 29 19:04:47 2024 +0200
+
+    Enhance XML formatting and compression functions with input file handling and size reporting
+
+[33mcommit d7caee632a353cc68b38585d05ce5887a7be1fb8[m
+Author: HabibaMowafy <154655475+Lucifer3224@users.noreply.github.com>
+Date:   Fri Nov 29 18:55:53 2024 +0200
+
+    Update OperationsFrame.py
+
+[33mcommit b141fd0ef31a534266298c4d115a25c8dd41a179[m
+Author: Youssef9112 <youssefshahean0@gmail.com>
+Date:   Fri Nov 29 17:28:16 2024 +0200
+
+    Implement XMLFormatter with prettify method and error handling
+
+[33mcommit 9b4aba9f8299ceeb93a1d9f6cf26abbe0f8fd30d[m
+Author: HabibaMowafy <habibamowafy24@gmail.com>
+Date:   Fri Nov 29 15:20:32 2024 +0200
+
+    added the Json converting and Minifing operations to the excute_operation function
+
+[33mcommit 3a7696de170f00905c6b8d9648d0fdc7db22696b[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Fri Nov 29 13:52:49 2024 +0200
+
+    updated readme
+
+[33mcommit c4f9a6216d39bf79208f8c51f6d824ac6d338fbb[m
+Author: dizzydroid <shehabmahmoud2003@gmail.com>
+Date:   Fri Nov 29 13:51:00 2024 +0200
+
+    updated cli_handler for co
