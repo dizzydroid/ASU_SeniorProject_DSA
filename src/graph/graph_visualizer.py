@@ -1,21 +1,35 @@
-import xml.etree.ElementTree as ET
 import networkx as nx
 import matplotlib.pyplot as plt
 
 class GraphVisualizer:
-    def __init__(self, graph):
-        self.graph = graph
+    def __init__(self, graph_data):
+        """
+        Initialize the visualizer with graph data.
+        :param graph_data: A networkx graph object.
+        """
+        self.graph = graph_data
 
-    def draw_graph(self, output_file):
+    def visualize(self, highlight_node=None, save_path=None):
         """
-        Draws the graph and saves it as an image.
+        Visualize the graph.
+        :param highlight_node: Optional node to highlight.
+        :param save_path: Optional path to save the visualization as an image.
         """
+        plt.figure(figsize=(12, 8))
         pos = nx.spring_layout(self.graph)
-        labels = nx.get_edge_attributes(self.graph, 'label')
 
-        plt.figure(figsize=(10, 8))
-        nx.draw(self.graph, pos, with_labels=True, node_size=2000, node_color="skyblue", font_size=10)
-        nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=labels)
-        plt.title("XML Graph Representation")
-        plt.savefig(output_file)
-        plt.close()
+        # Draw the graph
+        nx.draw(
+            self.graph, pos, with_labels=True, node_size=700, node_color="lightblue", edge_color="gray"
+        )
+
+        # Highlight specific node if provided
+        if highlight_node:
+            nx.draw_networkx_nodes(
+                self.graph, pos, nodelist=[highlight_node], node_color="orange", node_size=800
+            )
+
+        plt.title("User Graph Visualization")
+        if save_path:
+            plt.savefig(save_path)
+        plt.show()

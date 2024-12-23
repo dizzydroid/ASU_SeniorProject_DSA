@@ -34,8 +34,9 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
 - **Minification**: Reduce XML file size by removing unnecessary spaces and newlines.
 - **Compression**: Compress XML files into a custom format to save space.
 - **Decompression**: Restore compressed XML files to their original format.
-- **Visualization**: (Coming Soon) Represent social networks as graphs.
-- **Network Analysis**: (Coming Soon) Identify influencers, mutual connections, and follow suggestions.
+- **Visualization**: Represent social networks as graphs.
+- **Network Analysis**: Identify influencers, mutual connections, and follow suggestions.
+- **Post Search**: Search posts by word or topic.
 
 ---
 
@@ -43,7 +44,7 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
 
 ### **Prerequisites**
 - Python 3.8 or higher
-- Libraries listed in `requirements.txt`
+- Libraries listed in [`requirements.txt`](requirements.txt)
 
 ### **Installation**
 1. Clone the repository:
@@ -66,7 +67,7 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
 ### **Command Line Interface (CLI)**
 Perform quick and efficient operations on XML files via the CLI:
 ```bash
-xml_editor [command] -i input_file [-o output_file]
+xml_editor [command] -i [input_file] -o [output_file]
 ```
 > [!TIP]
 > Replace `[command]` with one of the available commands listed [below](#commands-overview).
@@ -83,15 +84,25 @@ Interact with XML files visually:
 ---
 
 ## **Commands Overview**
+The following is a comprehensive list of commands available in the XML Editor and example usage for each:
 
-| Command      | Description                                | Example Command                                     |
-|--------------|--------------------------------------------|----------------------------------------------------|
-| `verify`     | Validate an XML file and optionally fix it.| `xml_editor verify -i input.xml -f -o fixed.xml`   |
-| `format`     | Prettify an XML file for readability.      | `xml_editor format -i input.xml -o formatted.xml`  |
-| `json`       | Convert XML to JSON format.                | `xml_editor json -i input.xml -o output.json`      |
-| `mini`       | Minify XML by removing unnecessary spaces. | `xml_editor mini -i input.xml -o minified.xml`     |
-| `compress`   | Compress an XML file into a custom format. | `xml_editor compress -i input.xml -o compressed.comp` |
-| `decompress` | Restore compressed XML to its original form.| `xml_editor decompress -i compressed.comp -o output.xml` |
+| Command        | Description                                       | Example Command                                              |
+|----------------|---------------------------------------------------|--------------------------------------------------------------|
+| `verify`       | Validate an XML file and optionally fix it.       | `./xml_editor verify -i input.xml -f -o fixed.xml`  |
+| `format`       | Prettify an XML file for readability.             | `./xml_editor format -i input.xml -o formatted.xml` |
+| `json`         | Convert XML to JSON format.                       | `./xml_editor json -i input.xml -o output.json`     |
+| `mini`         | Minify XML by removing unnecessary spaces.        | `./xml_editor mini -i input.xml -o minified.xml`    |
+| `minify`       | Minify XML by removing unnecessary spaces.        | `./xml_editor minify -i input.xml -o minified.xml`  |
+| `compress`     | Compress an XML file into a custom format.        | `./xml_editor compress -i input.xml -o compressed.xml` |
+| `decompress`   | Restore compressed XML to its original form.      | `./xml_editor decompress -i compressed.xml -o output.xml` |
+| `cascade`      | Perform a sequence of operations on an XML file.  | `./xml_editor cascade -i input.xml -o final.xml -ops verify format minify json` |
+| `draw`         | Draw XML data as a graph.                         | `./xml_editor draw -i input.xml -o graph.png`       |
+| `most_active`  | Find the most active user in the XML data.        | `./xml_editor most_active -i input.xml`             |
+| `most_influencer` | Find the most influential user in the XML data.| `./xml_editor most_influencer -i input.xml`         |
+| `mutual`       | Find mutual users for given user IDs.              | `./xml_editor mutual -i input.xml -ids 1,2,3`       |
+| `suggest`      | Suggest users for a given user ID.                | `./xml_editor suggest -i input.xml -id 1`           |
+| `search`       | Search posts by word or topic.                    | `./xml_editor search -i input.xml -w word -t topic` |
+
 
 ---
 
