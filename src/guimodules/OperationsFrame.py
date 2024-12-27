@@ -3,16 +3,21 @@ from tkinter import messagebox
 import customtkinter as ctk
 import os
 import networkx as nx
-from modules.xml_minifier import XMLMinifier
-from modules.xml_to_json import XMLToJSONConverter
-from modules.xml_compressor import XMLCompressor
-from modules.xml_decompressor import XMLDecompressor
-from modules.xml_formatter import XMLFormatter
-from modules.xml_parser import XMLParser
-from graph.graph_representation import GraphRepresentation
-from graph.network_analysis import NetworkAnalysis
-from graph.graph_visualizer import GraphVisualizer
-from postsearch.post_search import PostSearch
+
+from src.modules.xml_parser import XMLParser
+from src.modules.xml_formatter import XMLFormatter
+from src.modules.xml_to_json import XMLToJSONConverter
+from src.modules.xml_minifier import XMLMinifier
+from src.modules.xml_compressor import XMLCompressor
+from src.modules.xml_decompressor import XMLDecompressor
+from src.graph.graph_representation import GraphRepresentation
+from src.graph.network_analysis import NetworkAnalysis
+from src.postsearch.post_search import PostSearch
+
+from src.graph.graph_representation import GraphRepresentation
+from src.graph.network_analysis import NetworkAnalysis
+from src.graph.graph_visualizer import GraphVisualizer
+from src.postsearch.post_search import PostSearch
 
 
 

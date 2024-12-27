@@ -1,11 +1,25 @@
 import customtkinter as ctk
 from PIL import Image
+import os
+import sys
 
-from guimodules.WelcomeFrame import WelcomeFrame
-from guimodules.FileInputFrame import FileInputFrame
-from guimodules.OperationsFrame import OperationsFrame
-from guimodules.OutputFrame import OutputFrame
+# Add the project root to sys.path dynamically
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(project_root)
 
+from src.guimodules.WelcomeFrame import WelcomeFrame
+from src.guimodules.FileInputFrame import FileInputFrame
+from src.guimodules.OperationsFrame import OperationsFrame
+from src.guimodules.OutputFrame import OutputFrame
+from src.modules.xml_parser import XMLParser
+from src.modules.xml_formatter import XMLFormatter
+from src.modules.xml_to_json import XMLToJSONConverter
+from src.modules.xml_minifier import XMLMinifier
+from src.modules.xml_compressor import XMLCompressor
+from src.modules.xml_decompressor import XMLDecompressor
+from src.graph.graph_representation import GraphRepresentation
+from src.graph.network_analysis import NetworkAnalysis
+from src.postsearch.post_search import PostSearch
 
 class App(ctk.CTk):
     def __init__(self):
@@ -57,15 +71,15 @@ class App(ctk.CTk):
 
     def load_images(self):
         # Placeholder for image loading - replace with actual paths
-        self.light_logo_path = r"../../assets/images/nodescope_light.png"
-        self.dark_logo_path = r"../../assets/images/nodescope_dark.png"
+        self.light_logo_path = r"src/gui/gui_assets/nodescope_light.png"
+        self.dark_logo_path = r"src/gui/gui_assets/nodescope_dark.png"
 
         # Load placeholder images (replace with actual images)
         try:
             self.logo_image = ctk.CTkImage(
                 light_image=Image.open(self.dark_logo_path),
                 dark_image=Image.open(self.light_logo_path),
-                size=(500, 150)
+                size=(540, 120)
             )
         except Exception as e:
                 print(f"Error loading logo image: {e}")
