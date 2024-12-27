@@ -1,4 +1,4 @@
-from .graph_representation import GraphRepresentation as Graph
+from .graph.graph_representation import GraphRepresentation as Graph
 import networkx as nx
 class NetworkAnalysis:
     def __init__(self, graph: Graph):

@@ -1,4 +1,4 @@
-
+import networkx as nx
 class Post:
     def __init__(self, body, topics):
         self.body = body
@@ -57,6 +57,20 @@ class GraphRepresentation:
         self.users = users 
         self.edges = edges
         self.adjacency_list = adjacency_list
+        
+    def _create_networkx_graph(self):  #edited
+        """Creates and returns a networkx DiGraph from the current graph data"""
+        G = nx.DiGraph()
+
+        # Add nodes (users)
+        for user in self.users:
+            G.add_node(user.id)
+
+        # Add edges from the edges list
+        for edge in self.edges:
+            G.add_edge(edge[0], edge[1])
+
+        return G
 
     @classmethod
     def build_graph(cls, xml_file):
