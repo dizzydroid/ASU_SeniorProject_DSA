@@ -178,7 +178,7 @@ def _get_values(data, start_tag, end_tag):
 
 
 ###### Testing ######
-graph = GraphRepresentation.build_graph(r"D:\College\7th Semester\Data Structures and Algorithms (CSE331s)\Project\ASU_SeniorProject_DSA\samples\test.xml")
-print(graph.adjacency_list)
-print(graph.connections)
-print(graph.get_user_connections(5))
+# graph = GraphRepresentation.build_graph(r"D:\College\7th Semester\Data Structures and Algorithms (CSE331s)\Project\ASU_SeniorProject_DSA\samples\test.xml")
+# print(graph.adjacency_list)
+# print(graph.connections)
+# print(graph.get_user_connections(5))
