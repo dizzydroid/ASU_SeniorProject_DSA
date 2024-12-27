@@ -53,13 +53,15 @@ class GraphRepresentation:
         Return true if user with given id exists , false otherwise
     """
 
-    def __init__(self, *, users=None, edges=None, adjacency_list=None):
+    def __init__(self, *, users=None, edges=None, adjacency_list=None, connections=None):
         self.users: list[User] = users if users else []
         self.edges = edges if edges else []
         self.adjacency_list: dict[int, list[int]] = (
             adjacency_list if adjacency_list else {}
         )
-
+        self.connections: dict[int, set[int]] = (
+            connections if connections else {}
+        )
         # Create the networkx graph
         self.graph = self._create_networkx_graph() #edited
         
@@ -89,9 +91,9 @@ class GraphRepresentation:
             file path to the xml file
         """
 
-        users, adjacency_list, edges = cls.parse_xml_to_graph(xml_file)
+        users, adjacency_list, edges, connections = cls.parse_xml_to_graph(xml_file)
 
-        self = cls(users=users, adjacency_list=adjacency_list, edges=edges)
+        self = cls(users=users, adjacency_list=adjacency_list, edges=edges, connections=connections)
         return self
 
     def get_user(self, user_id):
@@ -99,6 +101,10 @@ class GraphRepresentation:
 
     def user_exists(self, user_id):
         return any(user.id == user_id for user in self.users)
+
+    def get_user_connections(self, user_id):
+        if self.user_exists(user_id):
+            return self.connections[user_id]
 
     @staticmethod
     def parse_xml_to_graph(xml_file_path):
@@ -111,6 +117,7 @@ class GraphRepresentation:
         users = []
         edges = []
         adjacency_list = {}
+        connections = {}
 
         # First, parse all users and create them (without assigning followers yet)
         for user_data in users_data:
@@ -119,7 +126,7 @@ class GraphRepresentation:
                 name=_get_value(user_data, "<name>", "</name>"),
             )
             adjacency_list[user.id] = []
-
+            connections[user.id] = set()
             # Parse posts
             posts_data = _get_values(user_data, "<post>", "</post>")
             for post_data in posts_data:
@@ -136,10 +143,17 @@ class GraphRepresentation:
                 adjacency_list[user.id].append(follower_id)
                 edges.append((user.id, follower_id))
 
+                # Add to connections (bidirectional relationship)
+                connections[user.id].add(follower_id)
+                if follower_id not in connections:
+                    connections[follower_id] = set()  # Initialize an empty set for the follower
+                connections[follower_id].add(user.id)
+
+
             # Add the user to the users list (without followers for now)
             users.append(user)
 
-        return users, adjacency_list, edges
+        return users, adjacency_list, edges , connections
 
 
 def _get_value(data, start_tag, end_tag):
@@ -164,6 +178,7 @@ def _get_values(data, start_tag, end_tag):
 
 
 ###### Testing ######
-# graph = GraphRepresentation.build_graph(r"D:\College\7th Semester\Data Structures and Algorithms (CSE331s)\Project\ASU_SeniorProject_DSA\samples\test.xml")
-# print(graph.users)
-# print(graph.adjacency_list)
+graph = GraphRepresentation.build_graph(r"D:\College\7th Semester\Data Structures and Algorithms (CSE331s)\Project\ASU_SeniorProject_DSA\samples\test.xml")
+print(graph.adjacency_list)
+print(graph.connections)
+print(graph.get_user_connections(5))
