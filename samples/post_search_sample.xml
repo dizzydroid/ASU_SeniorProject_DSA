@@ -1,0 +1,25 @@
+<blog>
+    <metadata>
+        <title>Science and Technology Blog</title>
+        <author>John Doe</author>
+        <date>2024-12-18</date>
+    </metadata>
+    <posts>
+        <post topic="technology">Technology advancements are shaping our future.</post>
+        <post topic="science">Physics is an essential branch of science.</post>
+        <post topic="literature">Literature enriches our understanding of human culture.</post>
+        <post>General post without a topic attribute.</post>
+        <post topic="science">Exploring the mysteries of the universe.</post>
+    </posts>
+    <comments>
+        <comment user="user123">Great article on science!</comment>
+        <comment user="techfan">I love the technology insights shared here.</comment>
+    </comments>
+    <footer>
+        <contact>Email: contact@scienceblog.com</contact>
+        <socials>
+            <facebook>facebook.com/scienceblog</facebook>
+            <twitter>@scienceblog</twitter>
+        </socials>
+    </footer>
+</blog>

@@ -15,6 +15,9 @@ from src.modules.xml_to_json import XMLToJSONConverter
 from src.modules.xml_minifier import XMLMinifier
 from src.modules.xml_compressor import XMLCompressor
 from src.modules.xml_decompressor import XMLDecompressor
+from src.graph.graph_representation import GraphRepresentation
+from src.graph.network_analysis import NetworkAnalysis
+from src.postsearch.post_search import PostSearch
 
 #TODO: Add logging
 
@@ -44,7 +47,7 @@ def get_default_output(input_file, operation):
     return add_extension(input_file, extension)
 
 
-# CLI commands
+###### CLI commands (XML operations) ############################################################
 
 def verify_xml(input_file, fix=False, output_file=None):
     print(f"{Style.BRIGHT}{Fore.CYAN}Verifying XML file: {input_file}{Style.RESET_ALL}")
@@ -256,7 +259,64 @@ def cascade_operations(input_file, output_file, operations):
     print(f"{Fore.LIGHTGREEN_EX}\nCascaded operations completed. Final output saved to {final_output_file}")
 
 
+###### CLI commands (Graph Related) ############################################################
+def draw_graph(input_file, output_file):
+    print(f"Drawing graph from {input_file}")
+    try:
+        graph = GraphRepresentation(input_file)
+        graph.draw(output_file)
+        print(f"Graph saved to {output_file}")
+    except Exception as e:
+        print(f"Error drawing graph: {e}")
 
+def most_active_user(input_file):
+    print(f"Finding most active user in {input_file}")
+    try:
+        analyzer = NetworkAnalysis(input_file)
+        user = analyzer.find_most_active_user()
+        print(f"Most active user: {user}")
+    except Exception as e:
+        print(f"Error finding most active user: {e}")
+
+def most_influencer_user(input_file):
+    print(f"Finding most influential user in {input_file}")
+    try:
+        analyzer = NetworkAnalysis(input_file)
+        user = analyzer.find_most_influencer()
+        print(f"Most influential user: {user}")
+    except Exception as e:
+        print(f"Error finding most influential user: {e}")
+
+def mutual_users(input_file, ids):
+    print(f"Finding mutual users for IDs {ids} in {input_file}")
+    try:
+        analyzer = NetworkAnalysis(input_file)
+        mutuals = analyzer.find_mutual_users(ids)
+        print(f"Mutual users: {mutuals}")
+    except Exception as e:
+        print(f"Error finding mutual users: {e}")
+
+def suggest_users(input_file, user_id):
+    print(f"Suggesting users for user ID {user_id} in {input_file}")
+    try:
+        analyzer = NetworkAnalysis(input_file)
+        suggestions = analyzer.suggest_users(user_id)
+        print(f"Suggested users: {suggestions}")
+    except Exception as e:
+        print(f"Error suggesting users: {e}")
+
+def search_posts(input_file, word=None, topic=None):
+    print(f"Searching posts in {input_file}")
+    try:
+        searcher = PostSearch(input_file)
+        if word:
+            results = searcher.search_by_word(word)
+            print(f"Posts containing the word '{word}': {results}")
+        elif topic:
+            results = searcher.search_by_topic(topic)
+            print(f"Posts related to the topic '{topic}': {results}")
+    except Exception as e:
+        print(f"Error searching posts: {e}")
 
 
 def main():
@@ -304,6 +364,32 @@ def main():
     cascade_parser.add_argument("-o", "--output", required=True, help="Final output file")
     cascade_parser.add_argument("-ops", "--operations", nargs='+', required=True, help="Sequence of operations (e.g., compress decompress)")
 
+    # Graph representation command
+    draw_parser = subparsers.add_parser("draw", help="Draw XML data as a graph")
+    draw_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+    draw_parser.add_argument("-o", "--output", required=True, help="Output image file")
+
+    # Network analysis commands
+    most_active_parser = subparsers.add_parser("most_active", help="Find most active user")
+    most_active_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+
+    most_influencer_parser = subparsers.add_parser("most_influencer", help="Find most influential user")
+    most_influencer_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+
+    mutual_parser = subparsers.add_parser("mutual", help="Find mutual users")
+    mutual_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+    mutual_parser.add_argument("-ids", required=True, help="Comma-separated user IDs")
+
+    suggest_parser = subparsers.add_parser("suggest", help="Suggest users for a given user ID")
+    suggest_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+    suggest_parser.add_argument("-id", required=True, help="User ID")
+
+    # Post search commands
+    search_parser = subparsers.add_parser("search", help="Search posts")
+    search_parser.add_argument("-i", "--input", required=True, help="Input XML file")
+    search_parser.add_argument("-w", "--word", help="Word to search for in posts")
+    search_parser.add_argument("-t", "--topic", help="Topic to search for in posts")
+
     args = parser.parse_args()
 
     if args.command == "verify":
@@ -319,10 +405,26 @@ def main():
     elif args.command == "decompress":
         decompress_xml(args.input, args.output)
     elif args.command == "cascade":
-        cascade_operations(args.input, args.output, args.operations)      
+        cascade_operations(args.input, args.output, args.operations)
+    
+    elif args.command == "draw":
+        draw_graph(args.input, args.output)
+    elif args.command == "most_active":
+        most_active_user(args.input)
+    elif args.command == "most_influencer":
+        most_influencer_user(args.input)
+    elif args.command == "mutual":
+        mutual_users(args.input, args.ids.split(","))
+    elif args.command == "suggest":
+        suggest_users(args.input, args.id)
+    elif args.command == "search":
+        search_posts(args.input, args.word, args.topic)
+              
     else:
         print(f"{Fore.RED}Error: Invalid command")
         parser.print_help()
+
+
 
 if __name__ == "__main__":
     main()
