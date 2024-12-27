@@ -1,4 +1,4 @@
-from graph.graph_representation import GraphRepresentation as Graph
+from .graph_representation import GraphRepresentation as Graph
 import heapq
 
 class NetworkAnalysis:
