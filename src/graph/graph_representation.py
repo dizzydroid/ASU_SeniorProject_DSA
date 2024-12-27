@@ -57,6 +57,9 @@ class GraphRepresentation:
         self.users = users 
         self.edges = edges
         self.adjacency_list = adjacency_list
+
+        # Create the networkx graph
+        self.graph = self._create_networkx_graph() #edited
         
     def _create_networkx_graph(self):  #edited
         """Creates and returns a networkx DiGraph from the current graph data"""
