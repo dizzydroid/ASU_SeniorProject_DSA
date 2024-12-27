@@ -298,6 +298,9 @@ def most_influencer_user(input_file):
 
 def mutual_users(input_file, ids):
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding mutual users for IDs {ids} in {input_file}{Style.RESET_ALL}")
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+        print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
         graph = GraphRepresentation.build_graph(input_file)
         analyzer = NetworkAnalysis(graph)
@@ -308,6 +311,9 @@ def mutual_users(input_file, ids):
 
 def suggest_users(input_file, user_id):
     print(f"{Style.BRIGHT}{Fore.CYAN}Suggesting users for user ID {user_id} in {input_file}{Style.RESET_ALL}")
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+        print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
         graph = GraphRepresentation.build_graph(input_file)
         analyzer = NetworkAnalysis(graph)
