@@ -18,7 +18,7 @@ from src.modules.xml_decompressor import XMLDecompressor
 from src.graph.graph_representation import GraphRepresentation
 from src.graph.network_analysis import NetworkAnalysis
 from src.postsearch.post_search import PostSearch
-
+from src.graph.graph_visualizer import GraphVisualizer
 #TODO: Add logging
 
 # Initialize colorama
@@ -261,49 +261,60 @@ def cascade_operations(input_file, output_file, operations):
 
 ###### CLI commands (Graph Related) ############################################################
 def draw_graph(input_file, output_file):
-    print(f"Drawing graph from {input_file}")
+    print(f"{Style.BRIGHT}{Fore.CYAN}Visualizing Graph: {input_file}{Style.RESET_ALL}")
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+        print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
-        graph = GraphRepresentation(input_file)
-        graph.draw(output_file)
-        print(f"Graph saved to {output_file}")
+        graph = GraphRepresentation.build_graph(input_file)
+        GraphVisualizer(graph).visualize(save_path=output_file)
+        print(f"{Fore.GREEN}Graph Visualization saved to {output_file}")
     except Exception as e:
-        print(f"Error drawing graph: {e}")
+        print(f"{Fore.RED}Error: did not produce an output file.")
 
 def most_active_user(input_file):
-    print(f"Finding most active user in {input_file}")
+    print(f"{Style.BRIGHT}{Fore.CYAN}Finding most active user: {input_file}{Style.RESET_ALL}")
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+        print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
-        analyzer = NetworkAnalysis(input_file)
-        user = analyzer.find_most_active_user()
+        graph = GraphRepresentation.build_graph(input_file)
+        user = NetworkAnalysis(graph).get_most_active_user() 
         print(f"Most active user: {user}")
     except Exception as e:
-        print(f"Error finding most active user: {e}")
+        print(f"{Fore.RED}Error finding most active user: {e}")
 
 def most_influencer_user(input_file):
-    print(f"Finding most influential user in {input_file}")
+    print(f"{Style.BRIGHT}{Fore.CYAN}Finding most influential user: {input_file}{Style.RESET_ALL}")
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+        print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
-        analyzer = NetworkAnalysis(input_file)
-        user = analyzer.find_most_influencer()
+        graph = GraphRepresentation.build_graph(input_file)
+        user = NetworkAnalysis(graph).get_most_influencer_user()
         print(f"Most influential user: {user}")
     except Exception as e:
-        print(f"Error finding most influential user: {e}")
+        print(f"{Fore.RED}Error finding most influential user: {e}")
 
 def mutual_users(input_file, ids):
-    print(f"Finding mutual users for IDs {ids} in {input_file}")
+    print(f"{Style.BRIGHT}{Fore.CYAN}Finding mutual users for IDs {ids} in {input_file}{Style.RESET_ALL}")
     try:
-        analyzer = NetworkAnalysis(input_file)
-        mutuals = analyzer.find_mutual_users(ids)
+        graph = GraphRepresentation.build_graph(input_file)
+        analyzer = NetworkAnalysis(graph)
+        mutuals = analyzer.get_mutual_users(ids)
         print(f"Mutual users: {mutuals}")
     except Exception as e:
-        print(f"Error finding mutual users: {e}")
+        print(f"{Fore.RED}Error finding mutual users: {e}")
 
 def suggest_users(input_file, user_id):
-    print(f"Suggesting users for user ID {user_id} in {input_file}")
+    print(f"{Style.BRIGHT}{Fore.CYAN}Suggesting users for user ID {user_id} in {input_file}{Style.RESET_ALL}")
     try:
-        analyzer = NetworkAnalysis(input_file)
-        suggestions = analyzer.suggest_users(user_id)
+        graph = GraphRepresentation.build_graph(input_file)
+        analyzer = NetworkAnalysis(graph)
+        suggestions = analyzer.get_suggested_users(user_id)
         print(f"Suggested users: {suggestions}")
     except Exception as e:
-        print(f"Error suggesting users: {e}")
+        print(f"{Fore.RED}Error suggesting users: {e}")
 
 def search_posts(input_file, word=None, topic=None):
     print(f"Searching posts in {input_file}")
