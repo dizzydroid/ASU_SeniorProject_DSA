@@ -1,8 +1,10 @@
-from .graph_representation import GraphRepresentation as Graph
-import networkx as nx
+from graph.graph_representation import GraphRepresentation as Graph
+
+
 class NetworkAnalysis:
-    def __init__(self, graph: Graph):
-        self.graph : nx.DiGraph = graph.graph
+    def __init__(self, graph_rep: Graph):
+        self.graph_rep = graph_rep
+        self.graph = graph_rep.graph
 
     def get_most_active_user(self):
         """
@@ -32,9 +34,36 @@ class NetworkAnalysis:
         """
         Returns user suggestions based on mutual friends.
         """
-        suggestions = {}
-        for friend in self.graph.adjacency_list[user_id]:
-            for second_degree_friend in self.graph.adjacency_list[friend]:
-                if second_degree_friend != user_id and second_degree_friend not in self.graph.adjacency_list[user_id]:
-                    suggestions[second_degree_friend] = suggestions.get(second_degree_friend, 0) + 1
-        return sorted(suggestions.keys(), key=lambda x: suggestions[x], reverse=True)
+        # Verify user exists
+        if not self.graph.has_node(user_id):
+            return []
+
+        # Get current friends
+        current_friends = set(self.graph.successors(user_id))
+
+        # Get all users from graph
+        all_users = set(self.graph.nodes())
+
+        suggestion_scores = {}
+
+        for potential_friend in all_users:
+            # Skip if it's the user themselves or already a friend
+            if potential_friend == user_id or potential_friend in current_friends:
+                continue
+
+            score = 0
+
+            # Number of mutual friends
+            mutual_friends = self.get_mutual_users([user_id, potential_friend])
+            score += len(mutual_friends)
+
+            if score > 0:
+                suggestion_scores[potential_friend] = score
+
+        # Sort by score and return user IDs
+        sorted_suggestions = sorted(
+            suggestion_scores.items(),
+            key=lambda x: (-x[1], x[0])
+        )
+
+        return [user_id for user_id, _ in sorted_suggestions]
