@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
+from PIL import Image, ImageTk
 import os
 
 
@@ -87,8 +88,13 @@ class OutputFrame(ctk.CTkFrame):
                 ("JSON files", "*.json"),
                 ("Compressed files", "*.zip"),
                 ("Text files", "*.txt"),
+                ("PNG files", "*.png"),  # Add PNG support
                 ("All files", "*.*")
             ]
+
+            ##################################################
+            # Add an image label to display graphs
+            self.image_label = None
 
             # Suggest filename based on current extension
             default_filename = f"output{self.current_file_extension}"
@@ -129,6 +135,48 @@ class OutputFrame(ctk.CTkFrame):
                 text=f"Error saving file: {str(e)}",
                 text_color="#ef4444"
             )
+
+    ##################################################
+    def display_image(self, image):
+        """Display an image in the output frame"""
+        # Remove existing image if any
+        if hasattr(self, 'image_label') and self.image_label:
+            self.image_label.destroy()
+
+        try:
+            # If we received a PIL Image directly
+            if isinstance(image, Image.Image):
+                pil_image = image
+            else:  # If we received a path
+                pil_image = Image.open(image)
+
+            # Resize to fit the frame while maintaining aspect ratio
+            display_size = (780, 380)
+            pil_image.thumbnail(display_size, Image.Resampling.LANCZOS)
+
+            # Convert to PhotoImage
+            photo = ImageTk.PhotoImage(pil_image)
+
+            # Create and display label
+            self.image_label = ctk.CTkLabel(self, image=photo)
+            self.image_label.image = photo  # Keep a reference
+            self.image_label.grid(row=1, column=0, pady=(20, 20), padx=20, sticky="nsew")
+
+            # Hide text box when showing image
+            self.output_text.grid_remove()
+
+            # Store the original image for saving
+            self.current_image = pil_image
+
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to display image: {str(e)}")
+
+    def show_text(self):
+        """Switch back to showing text output"""
+        if self.image_label:
+            self.image_label.grid_remove()
+        self.output_text.grid()
+    ##################################################
 
     def set_current_extension(self, extension):
         """
