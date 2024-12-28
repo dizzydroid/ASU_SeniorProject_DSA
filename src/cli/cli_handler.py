@@ -261,7 +261,7 @@ def cascade_operations(input_file, output_file, operations):
 
 ###### CLI commands (Graph Related) ############################################################
 def draw_graph(input_file, output_file):
-    if os.path.splitext(input_file)[1] != ".xml":
+    if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Visualizing Graph: {input_file}{Style.RESET_ALL}")
@@ -276,7 +276,7 @@ def draw_graph(input_file, output_file):
         print(f"{Fore.RED}Error: did not produce an output file.")
 
 def most_active_user(input_file):
-    if os.path.splitext(input_file)[1] != ".xml":
+    if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding most active user: {input_file}{Style.RESET_ALL}")
@@ -291,7 +291,7 @@ def most_active_user(input_file):
         print(f"{Fore.RED}Error finding most active user: {e}")
 
 def most_influencer_user(input_file):
-    if os.path.splitext(input_file)[1] != ".xml":
+    if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding most influential user: {input_file}{Style.RESET_ALL}")
@@ -306,7 +306,7 @@ def most_influencer_user(input_file):
         print(f"{Fore.RED}Error finding most influential user: {e}")
 
 def mutual_users(input_file, ids):
-    if os.path.splitext(input_file)[1] != ".xml":
+    if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding mutual users for IDs {ids} in {input_file}{Style.RESET_ALL}")
@@ -322,7 +322,7 @@ def mutual_users(input_file, ids):
         print(f"{Fore.RED}Error finding mutual users: {e}")
 
 def suggest_users(input_file, user_id):
-    if os.path.splitext(input_file)[1] != ".xml":
+    if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:   
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Suggesting users for user ID {user_id} in {input_file}{Style.RESET_ALL}")
