@@ -160,8 +160,8 @@ def _get_values(data, start_tag, end_tag):
     return values
 
 
-###### Testing ######
-graph = GraphRepresentation.build_graph(r"path to xml file")
-print(graph.adjacency_list)
-print(graph.connections)
-# print(graph.get_user_connections(5))
+# ###### Testing ######
+# graph = GraphRepresentation.build_graph(r"path to xml file")
+# print(graph.adjacency_list)
+# print(graph.connections)
+# # print(graph.get_user_connections(5))

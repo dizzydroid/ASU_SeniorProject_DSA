@@ -1,5 +1,4 @@
-from graph_representation import GraphRepresentation as Graph
-import heapq
+from src.graph.graph_representation import GraphRepresentation as Graph
 
 class NetworkAnalysis:
     def __init__(self, graph_rep: Graph):
@@ -89,7 +88,7 @@ class NetworkAnalysis:
 
 
 ## Test items
-graph = Graph.build_graph(r"path/to/xml/file")
-net_analysis = NetworkAnalysis(graph)
-print(net_analysis.get_most_active_user())
-print(net_analysis.get_most_influencer_user())
+# graph = Graph.build_graph(r"path/to/xml/file")
+# net_analysis = NetworkAnalysis(graph)
+# print(net_analysis.get_most_active_user())
+# print(net_analysis.get_most_influencer_user())
