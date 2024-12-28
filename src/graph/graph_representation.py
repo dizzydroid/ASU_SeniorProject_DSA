@@ -1,4 +1,3 @@
-import networkx as nx
 class Post:
     def __init__(self, body, topics):
         self.body = body
@@ -62,22 +61,6 @@ class GraphRepresentation:
         self.connections: dict[int, set[int]] = (
             connections if connections else {}
         )
-        # Create the networkx graph
-        self.graph = self._create_networkx_graph() #edited
-        
-    def _create_networkx_graph(self):  #edited
-        """Creates and returns a networkx DiGraph from the current graph data"""
-        G = nx.DiGraph()
-
-        # Add nodes (users)
-        for user in self.users:
-            G.add_node(user.id)
-
-        # Add edges from the edges list
-        for edge in self.edges:
-            G.add_edge(edge[0], edge[1])
-
-        return G
 
     @classmethod
     def build_graph(cls, xml_file):
@@ -178,7 +161,7 @@ def _get_values(data, start_tag, end_tag):
 
 
 ###### Testing ######
-# graph = GraphRepresentation.build_graph(r"D:\College\7th Semester\Data Structures and Algorithms (CSE331s)\Project\ASU_SeniorProject_DSA\samples\test.xml")
-# print(graph.adjacency_list)
-# print(graph.connections)
+graph = GraphRepresentation.build_graph(r"path to xml file")
+print(graph.adjacency_list)
+print(graph.connections)
 # print(graph.get_user_connections(5))
