@@ -14,6 +14,7 @@
     - [**Prerequisites**](#prerequisites)
     - [**Installation**](#installation)
   - [**Usage**](#usage)
+    - [**Directly from Main**](#directly-from-main)
     - [**Command Line Interface (CLI)**](#command-line-interface-cli)
     - [**Graphical User Interface (GUI)**](#graphical-user-interface-gui)
   - [**Commands Overview**](#commands-overview)
@@ -64,10 +65,34 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
 
 ## **Usage**
 
-### **Command Line Interface (CLI)**
-Perform quick and efficient operations on XML files via the CLI:
+### **Directly from Main**
+The main script allows you to choose either interface, you can run it directly from root:
 ```bash
-xml_editor [command] -i [input_file] -o [output_file]
+python main.py
+```
+> Displays a help message with available options.
+> Choose either `--cli` or `--gui` to launch the respective interface.
+
+```bash
+python main.py --gui
+```
+> Launches the GUI for visual interaction with XML files.
+
+```bash
+python main.py --cli
+```
+> Launches the CLI for quick operations on XML files, in a shell-like environment. 
+> Simply type the [command](#commands-overview) followed by the required arguments.
+> For example:
+> ```bash
+> >> verify -i input.xml -f -o fixed.xml
+> ```
+> To exit the CLI, type `exit` or `quit`.
+
+### **Command Line Interface (CLI)**
+Perform quick and efficient operations on XML files via the CLI using the `.bat` script provided, `xml_editor`:
+```bash
+./xml_editor [command] -i [input_file] -o [output_file]
 ```
 > [!TIP]
 > Replace `[command]` with one of the available commands listed [below](#commands-overview).
