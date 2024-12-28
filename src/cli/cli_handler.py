@@ -272,6 +272,7 @@ def draw_graph(input_file, output_file):
         graph = GraphRepresentation.build_graph(input_file)
         analyzer:NetworkAnalysis = NetworkAnalysis(graph)
         GraphVisualizer(graph).visualize(output_file, most_active_users=analyzer.get_most_active_user(), most_influential_users=analyzer.get_most_influencer_user()) 
+        print(f"{Fore.GREEN}Graph visualization saved to {output_file}")
     except Exception as e:
         print(f"{Fore.RED}Error: did not produce an output file.")
 
@@ -286,7 +287,7 @@ def most_active_user(input_file):
     try:
         graph = GraphRepresentation.build_graph(input_file)
         user = NetworkAnalysis(graph).get_most_active_user() 
-        print(f"Most active user:",*user)
+        print(f"{Fore.GREEN}Most active user(s):",*user)
     except Exception as e:
         print(f"{Fore.RED}Error finding most active user: {e}")
 
@@ -301,13 +302,23 @@ def most_influencer_user(input_file):
     try:
         graph = GraphRepresentation.build_graph(input_file)
         user = NetworkAnalysis(graph).get_most_influencer_user()
-        print(f"Most active user:",*user)
+        print(f"{Fore.GREEN}Most influential user(s):",*user)
     except Exception as e:
         print(f"{Fore.RED}Error finding most influential user: {e}")
 
-def mutual_users(input_file, ids):
+def mutual_users(input_file, ids:str):
     if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
+    try:
+        ids = ids.split(",")
+    except ValueError:
+        print(f"{Fore.RED}Error: Invalid user IDs. Please provide a comma-separated list of integer user IDs.")
+        return
+    try:
+        ids = list(map(int, ids))
+    except ValueError:
+        print(f"{Fore.RED}Error: Invalid user IDs. Please provide a comma-separated list of integer user IDs.")
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding mutual users for IDs {ids} in {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
@@ -317,13 +328,18 @@ def mutual_users(input_file, ids):
         graph = GraphRepresentation.build_graph(input_file)
         analyzer = NetworkAnalysis(graph)
         mutuals = analyzer.get_mutual_users(ids)
-        print(f"Mutual users: {mutuals}")
+        print(f"{Fore.GREEN}Mutual users: {mutuals}")
     except Exception as e:
         print(f"{Fore.RED}Error finding mutual users: {e}")
 
 def suggest_users(input_file, user_id):
     if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:   
         print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
+    try:
+        user_id = int(user_id)
+    except ValueError:
+        print(f"{Fore.RED}Error: Invalid user ID. Please provide a valid integer user ID.")
         return
     print(f"{Style.BRIGHT}{Fore.CYAN}Suggesting users for user ID {user_id} in {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
@@ -333,7 +349,7 @@ def suggest_users(input_file, user_id):
         graph = GraphRepresentation.build_graph(input_file)
         analyzer = NetworkAnalysis(graph)
         suggestions = analyzer.get_suggested_users(user_id)
-        print(f"Suggested users: {suggestions}")
+        print(f"{Fore.GREEN}Suggested users: {suggestions}")
     except Exception as e:
         print(f"{Fore.RED}Error suggesting users: {e}")
 
@@ -446,7 +462,7 @@ def main():
     elif args.command == "most_influencer":
         most_influencer_user(args.input)
     elif args.command == "mutual":
-        mutual_users(args.input, args.ids.split(","))
+        mutual_users(args.input, args.ids)
     elif args.command == "suggest":
         suggest_users(args.input, args.id)
     elif args.command == "search":
