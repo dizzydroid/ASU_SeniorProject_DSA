@@ -429,54 +429,97 @@ class OperationsFrame(ctk.CTkFrame):
             elif operation == "Draw Graph":
                 try:
                     graph = GraphRepresentation.build_graph(self.parent.file_path)
-                    G = nx.DiGraph()
+                    network_analysis = NetworkAnalysis(graph)
 
-                    # Add edges from graph representation
-                    for edge in graph.edges:
-                        G.add_edge(edge[0], edge[1])
+                    # Get most active and influential users for highlighting
+                    most_active = network_analysis.get_most_active_user()
+                    most_influential = network_analysis.get_most_influencer_user()
 
-                    visualizer = GraphVisualizer(G)
+                    visualizer = GraphVisualizer(graph)
 
+                    # Clear the output frame's text
                     output_frame = self.parent.frames['OutputFrame']
                     output_frame.output_text.delete('1.0', ctk.END)
 
-                    # Save visualization to a temp file first
+                    # Save visualization to a temp file
                     temp_dir = os.path.dirname(self.parent.file_path)
                     temp_graph_path = os.path.join(temp_dir, "temp_graph.png")
-                    visualizer.visualize(save_path=temp_graph_path)
 
-                    # Show the path in output frame
-                    output_frame.output_text.insert(ctk.END, f"Graph visualization saved as: {temp_graph_path}")
+                    visualizer.visualize(
+                        save_path=temp_graph_path,
+                        most_active_users=most_active if isinstance(most_active, list) else [
+                            most_active] if most_active else None,
+                        most_influential_users=most_influential if isinstance(most_influential, list) else [
+                            most_influential] if most_influential else None
+                    )
 
+                    # Create informative text output
+                    output_content = """Graph Analysis Summary:
+                                Network Visualization has been generated with the following details:
+
+                                1. Node Information:
+                                   - All users are represented as nodes
+                                   - Node colors indicate user types:
+
+                                     * Light Blue: Regular users
+                                     * Red: Most active users
+                                     * Green: Most influential users
+                                     * Purple: Users who are both active and influential
+
+                                2. Edge Information:
+                                   - Arrows show follower relationships
+                                   - Arrow direction: From user -> to follower
+
+                                3. Layout:
+                                   - Spring layout is used for node positioning
+                                   - Nodes are spaced for optimal visibility
+                                   - Labels show user names and IDs
+
+                                You can find the complete visualization at:
+                                {}
+                                Note: The graph has been saved as a PNG file which you can open with any image viewer for a detailed examination.""".format(
+                        temp_graph_path)
+
+                    # Insert the formatted text
+                    output_frame.output_text.insert('1.0', output_content)
                     output_frame.status_label.configure(
                         text="Graph Generated Successfully",
                         text_color="#10b981"
                     )
 
-                    self.parent.show_frame("OutputFrame")
+                    # Show success message
+                    messagebox.showinfo("Success",
+                                        "Graph has been generated and saved successfully.\nYou can find it at: " + temp_graph_path)
 
+                    self.parent.show_frame("OutputFrame")
                 except Exception as e:
                     messagebox.showerror("Error", f"Failed to generate graph: {str(e)}")
 
-            elif operation == "Most Active User":     # can't be tested yet
+            elif operation == "Most Active User":
                 graph = GraphRepresentation.build_graph(self.parent.file_path)
                 analyzer = NetworkAnalysis(graph)
+                most_active_ids = analyzer.get_most_active_user()
 
-                most_active_id = analyzer.get_most_active_user()
-                most_active_user = graph.get_user(most_active_id)
+                if not most_active_ids:
+                    messagebox.showinfo("No Results", "No active users found in the network.")
+                    return
 
-                output_content = f"""Most Active User Analysis:
+                # Convert to list if single ID returned
+                if not isinstance(most_active_ids, list):
+                    most_active_ids = [most_active_ids]
 
-                User ID: {most_active_user.id}
-                Name: {most_active_user.name}
-                Number of Followers: {len(most_active_user.followers)}
-                Number of Posts: {len(most_active_user.posts)}
-
-                Posts:
-                """
-
-                for post in most_active_user.posts:
-                    output_content += f"\nPost Body: {post.body}\nTopics: {', '.join(post.topics)}\n"
+                output_content = "Most Active User Analysis:\n\n"
+                for most_active_id in most_active_ids:
+                    most_active_user = graph.get_user(most_active_id)
+                    if most_active_user:
+                        output_content += f"User ID: {most_active_user.id}\n"
+                        output_content += f"Name: {most_active_user.name}\n"
+                        output_content += f"Number of Followers: {len(most_active_user.followers)}\n"
+                        output_content += f"Number of Posts: {len(most_active_user.posts)}\n\n"
+                        output_content += "Posts:\n"
+                        for post in most_active_user.posts:
+                            output_content += f"\nPost Body: {post.body}\nTopics: {', '.join(post.topics)}\n"
+                        output_content += "\n-------------------\n\n"
 
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
@@ -484,40 +527,43 @@ class OperationsFrame(ctk.CTkFrame):
                 output_frame.output_text.insert(ctk.END, output_content)
 
                 output_frame.status_label.configure(
-                    text="Most Active User Found Successfully",
+                    text="Most Active User(s) Found Successfully",
                     text_color="#10b981"
                 )
-
-                # Navigate to OutputFrame
                 self.parent.show_frame("OutputFrame")
 
-            elif operation == "Top Influencer":     # can't be tested yet
-                # Create graph and analysis objects
+            elif operation == "Top Influencer":
                 graph = GraphRepresentation.build_graph(self.parent.file_path)
                 analyzer = NetworkAnalysis(graph)
+                influencer_ids = analyzer.get_most_influencer_user()
 
-                # Get top influencer
-                influencer_id = analyzer.get_most_influencer_user()
-                influencer = graph.get_user(influencer_id)
+                if not influencer_ids:
+                    messagebox.showinfo("No Results", "No influential users found in the network.")
+                    return
 
-                # Prepare output content
-                output_content = f"""Top Influencer Analysis:
+                # Convert to list if single ID returned
+                if not isinstance(influencer_ids, list):
+                    influencer_ids = [influencer_ids]
 
-                User ID: {influencer.id}
-                Name: {influencer.name}
-                Number of Followers: {len(influencer.followers)}
-                Number of Posts: {len(influencer.posts)}
+                output_content = "Top Influencer Analysis:\n\n"
+                for influencer_id in influencer_ids:
+                    influencer = graph.get_user(influencer_id)
+                    if influencer:
+                        output_content += f"User ID: {influencer.id}\n"
+                        output_content += f"Name: {influencer.name}\n"
+                        output_content += f"Number of Followers: {len(influencer.followers)}\n"
+                        output_content += f"Number of Posts: {len(influencer.posts)}\n\n"
+                        output_content += "Influence Metrics:\n"
+                        output_content += f"- Direct Followers: {len(influencer.followers)}\n"
+                        output_content += f"- Total Posts: {len(influencer.posts)}\n"
+                        avg_topics = sum(len(post.topics) for post in influencer.posts) / len(
+                            influencer.posts) if influencer.posts else 0
+                        output_content += f"- Average Topics per Post: {avg_topics:.2f}\n\n"
+                        output_content += "Recent Posts:\n"
+                        for post in influencer.posts[-5:]:
+                            output_content += f"\nPost Body: {post.body}\nTopics: {', '.join(post.topics)}\n"
 
-                Influence Metrics:
-                - Direct Followers: {len(influencer.followers)}
-                - Total Posts: {len(influencer.posts)}
-                - Average Topics per Post: {sum(len(post.topics) for post in influencer.posts) / len(influencer.posts) if influencer.posts else 0:.2f}
-
-                Recent Posts:
-                """
-
-                for post in influencer.posts[-5:]:  # Show last 5 posts
-                    output_content += f"\nPost Body: {post.body}\nTopics: {', '.join(post.topics)}\n"
+                        output_content += "\n-------------------\n\n"
 
                 # Update OutputFrame
                 output_frame = self.parent.frames['OutputFrame']
@@ -525,11 +571,9 @@ class OperationsFrame(ctk.CTkFrame):
                 output_frame.output_text.insert(ctk.END, output_content)
 
                 output_frame.status_label.configure(
-                    text="Top Influencer Found Successfully",
+                    text="Top Influencer(s) Found Successfully",
                     text_color="#10b981"
                 )
-
-                # Navigate to OutputFrame
                 self.parent.show_frame("OutputFrame")
 
             elif operation == "Mutual Users":
