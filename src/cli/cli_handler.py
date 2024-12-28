@@ -261,18 +261,24 @@ def cascade_operations(input_file, output_file, operations):
 
 ###### CLI commands (Graph Related) ############################################################
 def draw_graph(input_file, output_file):
+    if os.path.splitext(input_file)[1] != ".xml":
+        print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
     print(f"{Style.BRIGHT}{Fore.CYAN}Visualizing Graph: {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
         input_file = f"{input_file}.xml"  # Append .xml if no extension is present
         print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
         graph = GraphRepresentation.build_graph(input_file)
-        GraphVisualizer(graph).visualize(save_path=output_file)
-        print(f"{Fore.GREEN}Graph Visualization saved to {output_file}")
+        analyzer:NetworkAnalysis = NetworkAnalysis(graph)
+        GraphVisualizer(graph).visualize(output_file, most_active_users=analyzer.get_most_active_user(), most_influential_users=analyzer.get_most_influencer_user()) 
     except Exception as e:
         print(f"{Fore.RED}Error: did not produce an output file.")
 
 def most_active_user(input_file):
+    if os.path.splitext(input_file)[1] != ".xml":
+        print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding most active user: {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
         input_file = f"{input_file}.xml"  # Append .xml if no extension is present
@@ -280,11 +286,14 @@ def most_active_user(input_file):
     try:
         graph = GraphRepresentation.build_graph(input_file)
         user = NetworkAnalysis(graph).get_most_active_user() 
-        print(f"Most active user: {user}")
+        print(f"Most active user:",*user)
     except Exception as e:
         print(f"{Fore.RED}Error finding most active user: {e}")
 
 def most_influencer_user(input_file):
+    if os.path.splitext(input_file)[1] != ".xml":
+        print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding most influential user: {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
         input_file = f"{input_file}.xml"  # Append .xml if no extension is present
@@ -292,11 +301,14 @@ def most_influencer_user(input_file):
     try:
         graph = GraphRepresentation.build_graph(input_file)
         user = NetworkAnalysis(graph).get_most_influencer_user()
-        print(f"Most influential user: {user}")
+        print(f"Most active user:",*user)
     except Exception as e:
         print(f"{Fore.RED}Error finding most influential user: {e}")
 
 def mutual_users(input_file, ids):
+    if os.path.splitext(input_file)[1] != ".xml":
+        print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
     print(f"{Style.BRIGHT}{Fore.CYAN}Finding mutual users for IDs {ids} in {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
         input_file = f"{input_file}.xml"  # Append .xml if no extension is present
@@ -310,6 +322,9 @@ def mutual_users(input_file, ids):
         print(f"{Fore.RED}Error finding mutual users: {e}")
 
 def suggest_users(input_file, user_id):
+    if os.path.splitext(input_file)[1] != ".xml":
+        print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
     print(f"{Style.BRIGHT}{Fore.CYAN}Suggesting users for user ID {user_id} in {input_file}{Style.RESET_ALL}")
     if not os.path.splitext(input_file)[1]:
         input_file = f"{input_file}.xml"  # Append .xml if no extension is present
