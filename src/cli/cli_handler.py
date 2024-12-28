@@ -354,17 +354,25 @@ def suggest_users(input_file, user_id):
         print(f"{Fore.RED}Error suggesting users: {e}")
 
 def search_posts(input_file, word=None, topic=None):
-    print(f"Searching posts in {input_file}")
+    if os.path.splitext(input_file)[1] != ".xml" and os.path.splitext(input_file)[1]:
+        print(f"{Fore.RED}Error: Invalid input file. Please provide a valid XML file.") 
+        return
+    print(f"{Style.BRIGHT}{Fore.CYAN}Searching posts in {input_file}{Style.RESET_ALL}")
+    if not os.path.splitext(input_file)[1]:
+        input_file = f"{input_file}.xml"  # Append .xml if no extension is present
+        print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
         searcher = PostSearch(input_file)
         if word:
-            results = searcher.search_by_word(word)
-            print(f"Posts containing the word '{word}': {results}")
+            results = searcher.search_word(word)
+            print(f"{Fore.GREEN}Posts containing the word '{word}':")
+            print(*results, sep="\n")
         elif topic:
-            results = searcher.search_by_topic(topic)
-            print(f"Posts related to the topic '{topic}': {results}")
+            results = searcher.search_topic(topic)
+            print(f"{Fore.GREEN}Posts related to the topic '{topic}':")
+            print(*results, sep="\n")
     except Exception as e:
-        print(f"Error searching posts: {e}")
+        print(f"{Fore.RED}Error searching posts: {e}")
 
 
 def main():

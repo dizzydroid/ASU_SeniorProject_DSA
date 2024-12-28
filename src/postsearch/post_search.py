@@ -5,9 +5,9 @@ class PostSearch:
         Initialize the PostSearch object by loading the XML file content as a string.
         """
         with open(xml_file, 'r', encoding='utf-8') as file:
-            self.xml_content = file.read()
+            self.xml_content:str = file.read()
 
-    def search_word(self, word):
+    def search_word(self, word:str) -> list[str]:
        
         posts = []
         start = 0
@@ -28,7 +28,7 @@ class PostSearch:
             start = end + 7  # 7 is the length of "</post>"
         return posts
 
-    def search_topic(self, topic):
+    def search_topic(self, topic:str) -> list[str]:
         posts = []
         start = 0
         while True:
