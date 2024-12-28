@@ -61,6 +61,7 @@ class GraphRepresentation:
         self.connections: dict[int, set[int]] = (
             connections if connections else {}
         )
+        self.graph = self
 
     @classmethod
     def build_graph(cls, xml_file):
@@ -88,6 +89,15 @@ class GraphRepresentation:
     def get_user_connections(self, user_id):
         if self.user_exists(user_id):
             return self.connections[user_id]
+
+    def nodes(self):
+        return list(self.adjacency_list.keys())
+
+    def successors(self, node):
+        return self.adjacency_list.get(node, [])
+
+    def has_node(self, node):
+        return node in self.adjacency_list
 
     @staticmethod
     def parse_xml_to_graph(xml_file_path):
