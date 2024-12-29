@@ -287,7 +287,7 @@ def most_active_user(input_file):
     try:
         graph = GraphRepresentation.build_graph(input_file)
         user = NetworkAnalysis(graph).get_most_active_user() 
-        print(f"{Fore.GREEN}Most active user(s):",*user)
+        print(f"{Fore.GREEN}Most active user(s) ID(s):",*user)
     except Exception as e:
         print(f"{Fore.RED}Error finding most active user: {e}")
 
@@ -363,13 +363,17 @@ def search_posts(input_file, word=None, topic=None):
         print(f"{Fore.LIGHTYELLOW_EX}You forgot to add the extension to the input file :) \nAppending '.xml' to the input file name.")
     try:
         searcher = PostSearch(input_file)
-        if word:
-            results = searcher.search_word(word)
-            print(f"{Fore.GREEN}Posts containing the word '{word}':")
+        if word and topic:
+            results = searcher.search_word_topic(word, topic)
+            print(f"{Fore.GREEN}Posts containing the word '{word}' and related to the topic '{topic}':")
             print(*results, sep="\n")
         elif topic:
             results = searcher.search_topic(topic)
             print(f"{Fore.GREEN}Posts related to the topic '{topic}':")
+            print(*results, sep="\n")
+        elif word:
+            results = searcher.search_word(word)
+            print(f"{Fore.GREEN}Posts containing the word '{word}':")
             print(*results, sep="\n")
     except Exception as e:
         print(f"{Fore.RED}Error searching posts: {e}")

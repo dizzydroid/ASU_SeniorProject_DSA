@@ -75,6 +75,25 @@ class PostSearch:
             user_start = user_end + len("</user>")
         return posts
 
+
+    def search_word_topic(self, word, topic):
+        """
+        Search for posts containing a specific word and having a specific topic.
+        """
+        word_posts = []
+        topic_posts = []
+        # Search for posts containing the word
+        word_posts = self.search_word(word)
+
+        # Search for posts with the specific topic
+        topic_posts = self.search_topic(topic)
+
+        # Find the intersection of both lists
+        result_posts = [post for post in word_posts if post in topic_posts]
+
+        return result_posts
+    
+
     def _extract_tag_value(self, content, tag):
         """
         Extract the value of a given tag from the content.

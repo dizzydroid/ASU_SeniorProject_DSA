@@ -1,0 +1,159 @@
+<users>
+    <user>
+        <id>1</id>
+        <name>Ahmed Ali</name>
+        <posts>
+            <post>
+                <body>How solar energy is changing the world.</body>
+                <topics>
+                    <topic>solar_energy</topic>
+                    <topic>technology</topic>
+                </topics>
+            </post>
+            <post>
+                <body>The importance of financial literacy in today's economy.</body>
+                <topics>
+                    <topic>economy</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>2</id>
+            </follower>
+            <follower>
+                <id>3</id>
+            </follower>
+            <follower>
+                <id>4</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>2</id>
+        <name>Yasser Ahmed</name>
+        <posts>
+            <post>
+                <body>Education reforms: What should come next?</body>
+                <topics>
+                    <topic>education</topic>
+                    <topic>policy</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>1</id>
+            </follower>
+            <follower>
+                <id>5</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>3</id>
+        <name>Mohamed Sherif</name>
+        <posts>
+            <post>
+                <body>The rise of AI in sports analytics.</body>
+                <topics>
+                    <topic>sports</topic>
+                    <topic>technology</topic>
+                </topics>
+            </post>
+            <post>
+                <body>Top 10 moments in football history.</body>
+                <topics>
+                    <topic>sports</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>1</id>
+            </follower>
+            <follower>
+                <id>2</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>4</id>
+        <name>Sara Mahmoud</name>
+        <posts>
+            <post>
+                <body>The impact of clean water initiatives in rural areas.</body>
+                <topics>
+                    <topic>environment</topic>
+                    <topic>policy</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>1</id>
+            </follower>
+            <follower>
+                <id>3</id>
+            </follower>
+            <follower>
+                <id>5</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>5</id>
+        <name>Omar Khaled</name>
+        <posts>
+            <post>
+                <body>Advancements in renewable energy technologies.</body>
+                <topics>
+                    <topic>technology</topic>
+                    <topic>solar_energy</topic>
+                </topics>
+            </post>
+            <post>
+                <body>Breaking down the future of urban planning.</body>
+                <topics>
+                    <topic>policy</topic>
+                    <topic>economy</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>2</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>6</id>
+        <name>Fatima Saleh</name>
+        <posts>
+            <post>
+                <body>How to balance work and personal life effectively.</body>
+                <topics>
+                    <topic>self_help</topic>
+                </topics>
+            </post>
+            <post>
+                <body>Improving productivity with modern tools.</body>
+                <topics>
+                    <topic>technology</topic>
+                    <topic>self_help</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>3</id>
+            </follower>
+            <follower>
+                <id>5</id>
+            </follower>
+            <follower>
+                <id>4</id>
+            </follower>
+        </followers>
+    </user>
+</users>
