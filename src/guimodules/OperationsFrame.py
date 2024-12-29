@@ -443,7 +443,7 @@ class OperationsFrame(ctk.CTkFrame):
 
                     # Save visualization to a temp file
                     temp_dir = os.path.dirname(self.parent.file_path)
-                    temp_graph_path = os.path.join(temp_dir, "temp_graph.png")
+                    temp_graph_path = os.path.join(temp_dir, "graph.png")
 
                     visualizer.visualize(
                         save_path=temp_graph_path,
