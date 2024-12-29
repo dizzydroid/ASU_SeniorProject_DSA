@@ -1,25 +1,70 @@
-<blog>
-    <metadata>
-        <title>Science and Technology Blog</title>
-        <author>John Doe</author>
-        <date>2024-12-18</date>
-    </metadata>
-    <posts>
-        <post topic="technology">Technology advancements are shaping our future.</post>
-        <post topic="science">Physics is an essential branch of science.</post>
-        <post topic="literature">Literature enriches our understanding of human culture.</post>
-        <post>General post without a topic attribute.</post>
-        <post topic="science">Exploring the mysteries of the universe.</post>
-    </posts>
-    <comments>
-        <comment user="user123">Great article on science!</comment>
-        <comment user="techfan">I love the technology insights shared here.</comment>
-    </comments>
-    <footer>
-        <contact>Email: contact@scienceblog.com</contact>
-        <socials>
-            <facebook>facebook.com/scienceblog</facebook>
-            <twitter>@scienceblog</twitter>
-        </socials>
-    </footer>
-</blog>
+<users>
+	<user>
+		<id>1</id>
+		<name>Ahmed Ali</name>
+		<posts>
+			<post>
+				<body>
+					Lorem .
+				</body>
+				<topics>
+					<topic>economy</topic>
+				</topics>
+			</post>
+			<post>
+				<body>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				</body>
+				<topics>
+					<topic>solar_energy</topic>
+				</topics>
+			</post>
+		</posts>
+		<followers>
+			<follower>
+				<id>2</id>
+			</follower>
+			<follower>
+				<id>3</id>
+			</follower>
+		</followers>
+	</user>
+	<user>
+		<id>2</id>
+		<name>Yasser Ahmed</name>
+		<posts>
+			<post>
+				<body>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				</body>
+				<topics>
+					<topic>education</topic>
+				</topics>
+			</post>
+		</posts>
+		<followers>
+			<follower>
+				<id>1</id>
+			</follower>
+		</followers>
+	</user>
+	<user>
+		<id>3</id>
+		<name>Mohamed Sherif</name>
+		<posts>
+			<post>
+				<body>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				</body>
+				<topics>
+					<topic>sports</topic>
+				</topics>
+			</post>
+		</posts>
+		<followers>
+			<follower>
+				<id>1</id>
+			</follower>
+		</followers>
+	</user>
+</users>
