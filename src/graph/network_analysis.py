@@ -56,35 +56,31 @@ class NetworkAnalysis:
         if not self.graph.has_node(user_id):
             return []
 
-        # Get current friends
-        current_friends = set(self.graph.successors(user_id))
+        suggestions = set()
 
-        # Get all users from graph
-        all_users = set(self.graph.nodes())
+        # Get direct followers of the user
+        direct_followers = set(self.graph.adjacency_list[user_id])
 
-        suggestion_scores = {}
+        # For each direct follower
+        for follower in direct_followers:
+            # Get their followers
+            followers_of_follower = set(self.graph.adjacency_list[follower])
+            suggestions.update(followers_of_follower)
 
-        for potential_friend in all_users:
-            # Skip if it's the user themselves or already a friend
-            if potential_friend == user_id or potential_friend in current_friends:
-                continue
+        # Excluding from suggestions:
+        # 1. The user themselves
+        suggestions.discard(user_id)
 
-            score = 0
+        # 2. Direct followers of the user
+        suggestions.difference_update(direct_followers)
 
-            # Number of mutual friends
-            mutual_friends = self.get_mutual_users([user_id, potential_friend])
-            score += len(mutual_friends)
+        # 3. Users where the target user is already in their follower list
+        suggestions = {
+            suggestion for suggestion in suggestions
+            if user_id not in self.graph.adjacency_list[suggestion]
+        }
 
-            if score > 0:
-                suggestion_scores[potential_friend] = score
-
-        # Sort by score and return user IDs
-        sorted_suggestions = sorted(
-            suggestion_scores.items(),
-            key=lambda x: (-x[1], x[0])
-        )
-
-        return [user_id for user_id, _ in sorted_suggestions]
+        return list(suggestions)
 
 
 ## Test items
