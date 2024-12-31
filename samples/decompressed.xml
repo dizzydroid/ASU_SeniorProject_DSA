@@ -1,0 +1,16 @@
+<users>
+<user>
+<id>1</id>
+<name>user1</name>
+<posts>
+<post>
+Lorem ipsum dolor sit amet.
+</post>
+</posts>
+<followers>
+<follower>
+<id>2</id>
+</follower>
+</followers>
+</user>
+</users>
