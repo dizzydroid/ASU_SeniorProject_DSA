@@ -24,7 +24,6 @@ class XMLCustomParser:
         
         # Clean and filter tokens
         tokens = [token.strip() for token in tokens if token.strip()]
-        
         return tokens
 
     @staticmethod
@@ -103,19 +102,23 @@ class XMLToJSONConverter:
     def convert_element(self, node):
         """
         Convert a node to JSON-compatible dictionary
-        
         Args:
             node (CustomTreeNode): Node to convert
-        
         Returns:
             dict: JSON-compatible representation
         """
+        # If the node has no attributes or children, and only text, return the text directly
+        if not node.attributes and not node.children and node.text:
+            return node.text
+        
         # Start with attributes
         json_data = dict(node.attributes)
         
-        # Add text if exists
-        if node.text:
+        # Add text if exists and there are children (handle inline text)
+        if node.text and node.children:
             json_data['text'] = node.text
+        elif node.text:  # No children, treat text as direct value
+            return node.text
         
         # Process children
         for child in node.children:
@@ -123,7 +126,13 @@ class XMLToJSONConverter:
                 json_data[child.tag] = []
             json_data[child.tag].append(self.convert_element(child))
         
+        # Collapse lists with a single item to simplify structure
+        for key, value in json_data.items():
+            if isinstance(value, list) and len(value) == 1:
+                json_data[key] = value[0]
+        
         return json_data
+
 
     def _build_tree(self, tokens):
         """
@@ -148,7 +157,6 @@ class XMLToJSONConverter:
         try:
             while tokens:
                 token = tokens.pop(0)
-                
                 # Debugging: track current context
                 self._debug_info['current_context'] = [node.tag for node in stack]
                 
@@ -244,13 +252,14 @@ class XMLToJSONConverter:
             
             # Tokenize XML
             tokens = self._parser.tokenize(xml_content)
+
             
             # Build tree
             root = self._build_tree(tokens)
-            
-            # Convert to JSON
-            json_data = self.convert_element(root)
-            
+
+            # Convert to JSON with root tag as key
+            json_data = {root.tag: self.convert_element(root)}
+
             # Write JSON
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(json_data, f, indent=4)
@@ -265,8 +274,8 @@ class XMLToJSONConverter:
 # Example usage
 # if __name__ == '__main__':
 #     try:
-#         converter = XMLToJSONConverter('./samples/sample.xml')
-#         converter.convert('./samples/sample.json')
+#         converter = XMLToJSONConverter(r'path_to_file')
+#         converter.convert(r'path_to_file')
 #     except Exception as e:
 #         # User-friendly error message
 #         print("Oops! Something went wrong during the XML to JSON conversion. Please check your XML file for errors.")

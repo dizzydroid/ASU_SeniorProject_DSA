@@ -1,0 +1,195 @@
+{
+    "users": {
+        "user": [
+            {
+                "id": "1",
+                "name": "Ahmed Ali",
+                "posts": {
+                    "post": [
+                        {
+                            "body": "How solar energy is changing the world.",
+                            "topics": {
+                                "topic": [
+                                    "solar_energy",
+                                    "technology"
+                                ]
+                            }
+                        },
+                        {
+                            "body": "The importance of financial literacy in today's economy.",
+                            "topics": {
+                                "topic": "economy"
+                            }
+                        }
+                    ]
+                },
+                "followers": {
+                    "follower": [
+                        {
+                            "id": "2"
+                        },
+                        {
+                            "id": "3"
+                        },
+                        {
+                            "id": "4"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "2",
+                "name": "Yasser Ahmed",
+                "posts": {
+                    "post": {
+                        "body": "Education reforms: What should come next?",
+                        "topics": {
+                            "topic": [
+                                "education",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                "followers": {
+                    "follower": [
+                        {
+                            "id": "1"
+                        },
+                        {
+                            "id": "5"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "3",
+                "name": "Mohamed Sherif",
+                "posts": {
+                    "post": [
+                        {
+                            "body": "The rise of AI in sports analytics.",
+                            "topics": {
+                                "topic": [
+                                    "sports",
+                                    "technology"
+                                ]
+                            }
+                        },
+                        {
+                            "body": "Top 10 moments in football history.",
+                            "topics": {
+                                "topic": "sports"
+                            }
+                        }
+                    ]
+                },
+                "followers": {
+                    "follower": [
+                        {
+                            "id": "1"
+                        },
+                        {
+                            "id": "2"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "4",
+                "name": "Sara Mahmoud",
+                "posts": {
+                    "post": {
+                        "body": "The impact of clean water initiatives in rural areas.",
+                        "topics": {
+                            "topic": [
+                                "environment",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                "followers": {
+                    "follower": [
+                        {
+                            "id": "1"
+                        },
+                        {
+                            "id": "3"
+                        },
+                        {
+                            "id": "5"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "5",
+                "name": "Omar Khaled",
+                "posts": {
+                    "post": [
+                        {
+                            "body": "Advancements in renewable energy technologies.",
+                            "topics": {
+                                "topic": [
+                                    "technology",
+                                    "solar_energy"
+                                ]
+                            }
+                        },
+                        {
+                            "body": "Breaking down the future of urban planning.",
+                            "topics": {
+                                "topic": [
+                                    "policy",
+                                    "economy"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "followers": {
+                    "follower": {
+                        "id": "2"
+                    }
+                }
+            },
+            {
+                "id": "6",
+                "name": "Fatima Saleh",
+                "posts": {
+                    "post": [
+                        {
+                            "body": "How to balance work and personal life effectively.",
+                            "topics": {
+                                "topic": "self_help"
+                            }
+                        },
+                        {
+                            "body": "Improving productivity with modern tools.",
+                            "topics": {
+                                "topic": [
+                                    "technology",
+                                    "self_help"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "followers": {
+                    "follower": [
+                        {
+                            "id": "3"
+                        },
+                        {
+                            "id": "5"
+                        },
+                        {
+                            "id": "4"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
