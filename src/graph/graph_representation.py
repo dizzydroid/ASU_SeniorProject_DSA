@@ -119,7 +119,8 @@ class GraphRepresentation:
                 name=_get_value(user_data, "<name>", "</name>"),
             )
             adjacency_list[user.id] = []
-            connections[user.id] = set()
+            if user.id not in connections:
+                connections[user.id] = set()
             # Parse posts
             posts_data = _get_values(user_data, "<post>", "</post>")
             for post_data in posts_data:
@@ -174,4 +175,4 @@ def _get_values(data, start_tag, end_tag):
 # graph = GraphRepresentation.build_graph(r"path to xml file")
 # print(graph.adjacency_list)
 # print(graph.connections)
-# # print(graph.get_user_connections(5))
+# print(graph.get_user_connections(5))
