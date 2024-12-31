@@ -13,6 +13,6 @@ class XMLCompressor:
             file.write(compressed_data)
 
 # Usage
-compressor = XMLCompressor('../../samples/large_sample.xml')
-compressor.compress('../../samples/output.compressed')
+# compressor = XMLCompressor('../../samples/large_sample.xml')
+# compressor.compress('../../samples/output.compressed')
 

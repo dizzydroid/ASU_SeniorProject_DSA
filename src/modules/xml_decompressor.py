@@ -46,5 +46,5 @@ class XMLDecompressor:
 
 
 # Usage
-decompressor = XMLDecompressor(r'../samples/compressed.xml')
-decompressor.decompress(r'../samples/decompressed.xml')
+# decompressor = XMLDecompressor(r'../samples/compressed.xml')
+# decompressor.decompress(r'../samples/decompressed.xml')
