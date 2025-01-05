@@ -2,6 +2,7 @@ import customtkinter as ctk
 from PIL import Image
 import os
 import sys
+from main import resource_path
 
 # Add the project root to sys.path dynamically
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -71,8 +72,8 @@ class App(ctk.CTk):
 
     def load_images(self):
         # Placeholder for image loading - replace with actual paths
-        self.light_logo_path = r"src/gui/gui_assets/nodescope_light.png"
-        self.dark_logo_path = r"src/gui/gui_assets/nodescope_dark.png"
+        self.light_logo_path = resource_path("src/gui/gui_assets/nodescope_light.png")
+        self.dark_logo_path = resource_path("src/gui/gui_assets/nodescope_dark.png")
 
         # Load placeholder images (replace with actual images)
         try:

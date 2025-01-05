@@ -109,26 +109,3 @@ class PostSearch:
             return None
         return content[start:end]
 
-
-
-# Example Usage
-# Ensure the XML file path is correct
-xml_file_path = r"samples/test.xml"  # Use raw string or forward slashes
-
-searcher = PostSearch(xml_file_path)
-
-"""
-# Search for posts containing a specific word (case-insensitive)
-word = "EXercitation "
-word_results = searcher.search_word(word)
-print(f"Posts containing the word '{word}':")
-for post_body in word_results:
-    print(post_body)
-
-# Search for posts with a specific topic (case-insensitive)
-topic = "tOPiC1"
-topic_results = searcher.search_topic(topic)
-print(f"\nPosts with topic '{topic}':")
-for post_body in topic_results:
-    print(post_body)
-"""
