@@ -6,20 +6,20 @@
 
 
 ## **Table of Contents**
-- [**nodescope** | XML Editor and Visualizer](#nodescope--xml-editor-and-visualizer)
-  - [**Table of Contents**](#table-of-contents)
-  - [**Introduction**](#introduction)
+- [**Introduction**](#introduction)
   - [**Features**](#features)
   - [**Setup**](#setup)
     - [**Prerequisites**](#prerequisites)
     - [**Installation**](#installation)
   - [**Usage**](#usage)
+    - [**Release Versions**](#release-versions)
+    - [**From App.py**](#from-apppy)
     - [**Directly from Main**](#directly-from-main)
     - [**Command Line Interface (CLI)**](#command-line-interface-cli)
-    - [**Graphical User Interface (GUI)**](#graphical-user-interface-gui)
   - [**Commands Overview**](#commands-overview)
   - [**Testing**](#testing)
   - [**Contributing**](#contributing)
+
 
 ---
 
@@ -65,6 +65,20 @@ The XML Editor and Visualizer is a project developed for the Data Structures and
 
 ## **Usage**
 
+### **Release Versions**
+You can download the executable from the [**latest release**](https://github.com/dizzydroid/ASU_SeniorProject_DSA/releases) to run the application without needing Python installed.
+
+> [!NOTE]
+> - The executable is available only for Windows OS, for other platforms you can run using Python by following the instructions below.
+> 
+> - The executable has a few [**known issues**](https://github.com/dizzydroid/ASU_SeniorProject_DSA/releases#:~:text=files%20and%20graphs.-,Known%20Issues,-The%20application%20may), please be patient on the first run.
+
+### **From App.py**
+This is the main script that launches the application, you can run it directly from root, on any platform:
+```bash
+python app.py
+```
+
 ### **Directly from Main**
 The main script allows you to choose either interface, you can run it directly from root:
 ```bash
@@ -96,15 +110,6 @@ Perform quick and efficient operations on XML files via the CLI using the `.bat`
 ```
 > [!TIP]
 > Replace `[command]` with one of the available commands listed [below](#commands-overview).
-
-### **Graphical User Interface (GUI)**
-Interact with XML files visually:
-1. Launch the GUI:
-   ```bash
-   python main.py --gui
-   ```
-2. Select an XML file or paste content.
-3. Use the buttons to perform operations and view results.
 
 ---
 
