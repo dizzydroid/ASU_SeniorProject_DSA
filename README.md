@@ -7,18 +7,18 @@
 
 ## **Table of Contents**
 - [**Introduction**](#introduction)
-  - [**Features**](#features)
-  - [**Setup**](#setup)
-    - [**Prerequisites**](#prerequisites)
-    - [**Installation**](#installation)
-  - [**Usage**](#usage)
-    - [**Release Versions**](#release-versions)
-    - [**From App.py**](#from-apppy)
-    - [**Directly from Main**](#directly-from-main)
-    - [**Command Line Interface (CLI)**](#command-line-interface-cli)
-  - [**Commands Overview**](#commands-overview)
-  - [**Testing**](#testing)
-  - [**Contributing**](#contributing)
+- [**Features**](#features)
+- [**Setup**](#setup)
+   - [**Prerequisites**](#prerequisites)
+   - [**Installation**](#installation)
+- [**Usage**](#usage)
+   - [**Release Versions**](#release-versions)
+   - [**From App.py**](#from-apppy)
+   - [**Directly from Main**](#directly-from-main)
+   - [**Command Line Interface (CLI)**](#command-line-interface-cli)
+- [**Commands Overview**](#commands-overview)
+- [**Testing**](#testing)
+- [**Contributing**](#contributing)
 
 
 ---
